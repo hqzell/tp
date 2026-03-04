@@ -262,29 +262,20 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+Felix is a Year 3 Soc student and RA at Acacia College. Approachable and proactive, he enjoys connecting with residents and planning events for them regularly. He loves his terminal. However, he has poor memory and gets overwhelmed during orientation, because of the messy process of onboarding residents and collecting data.
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: RACE provides a single, dedicated system to manage resident details safely, keeping sensitive information private. During orientation, RAs must onboard 40+ residents quickly, and RACE helps to manage resident information efficiently, instead of current scattered and slow workflows.
 
 
 ### User stories
 
-Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
+The primary user of RACE is a Resident Assistant (RA) who needs to manage resident information efficiently during onboarding and throughout the semester. As a beginner RA, the user should be able to add a new resident record with a name and room number so that residents can be registered quickly during onboarding. The user should also be able to add a resident using a single command with multiple fields, allowing onboarding to be performed rapidly even when many residents need to be entered at once. In addition, the user should be able to view a list of all registered residents so that they can easily see everyone under their care.
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+To support quick retrieval of information, the user should be able to search for residents using partial information, allowing them to locate a resident even when they do not remember the exact details. The user should also be able to sort residents alphabetically or sort residents by room number, making it easier to browse through the resident list and perform block checks.
 
-*{More to be added}*
+To ensure records remain accurate over time, the RA should be able to update resident details whenever information changes. The user should also be able to remove resident records that are no longer needed, ensuring the system remains organised and uncluttered.
+
+Finally, the system should support basic usability and flexibility. A new RA should be able to understand what the system is meant to help them do, such as through clear guidance or documentation, so that they can quickly learn how the system supports their role. Additionally, the RA should be able to add a resident even if some optional fields are missing, ensuring that incomplete information does not prevent onboarding during busy periods.               | 
 
 ### Use cases
 
