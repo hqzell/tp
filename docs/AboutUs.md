@@ -11,8 +11,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Sayyid Mehdi
 
-![photo_6093849030526962792_c.jpg](../../../../../Downloads/photo_6093849030526962792_c.jpg)
-
+![Sayyid Mehdi](images/lamemario.jpg)
 [[homepage](http://www.comp.nus.edu.sg/~damithch)]
 [[github](https://github.com/lamemario)]
 
