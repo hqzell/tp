@@ -11,7 +11,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Andrew Soon
 
-<img src="images/andrewsoon.png" width="200px">
+<img src="images/andrewsoonqn.png" width="200px">
 
 [[homepage](andrewsoon.com)]
 [[github](https://github.com/andrewsoonqn)]
