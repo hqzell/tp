@@ -18,7 +18,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/andrewsoon.md)]
 
 ### Sayyid Mehdi
-<img src="images/lamemario.jpg" width="200px">
+<img src="images/lamemario.png" width="200px">
 
 [[homepage](www.linkedin.com/in/sayyid-mehdi-bin-safiyullah-a604171b4)]
 [[github](https://github.com/lamemario)]
