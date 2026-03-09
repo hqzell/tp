@@ -17,4 +17,4 @@ Detail the specific changes made in this pull request. Explain the problem addre
 
 - [ ] Tests have been added for the changes made.
 - [ ] Documentation has been updated where applicable, including docstrings for API changes. (UG, DG, portfolio, docstrings)
-- [ ] All files have been linted and formatted.
+- [ ] Code follows the style guidelines of this project (run `./gradlew check` to verify).
