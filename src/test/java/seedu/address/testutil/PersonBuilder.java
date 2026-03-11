@@ -34,7 +34,7 @@ public class PersonBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        room = new Room(DEFAULT_ADDRESS);
+        room = new Room(DEFAULT_ROOM);
         tags = new HashSet<>();
     }
 
