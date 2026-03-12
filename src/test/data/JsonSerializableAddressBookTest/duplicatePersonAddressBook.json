@@ -3,12 +3,12 @@
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "alice@example.com",
-    "room": "123, Jurong West Ave 6, #08-111",
+    "room": "#14-203-D",
     "tags": [ "friends" ]
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
-    "room": "4th street"
+    "room": "#14-203-D"
   } ]
 }

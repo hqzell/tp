@@ -9,13 +9,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Room {
 
-    public static final String MESSAGE_CONSTRAINTS = "Room numbers can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Room must follow the format #BLOCK-ROOM-LETTER (e.g. #14-203-D).";
 
     /*
      * The first character of the room number must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "#[0-9]{1,2}-[0-9]{3}-[A-Z]";
 
     public final String value;
 

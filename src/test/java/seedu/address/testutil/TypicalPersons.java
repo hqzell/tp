@@ -24,29 +24,29 @@ import seedu.address.model.person.Person;
 public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withRoom("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
+            .withRoom("#14-203-D").withEmail("alice@example.com")
             .withPhone("94351253")
             .withTags("friends").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
-            .withRoom("311, Clementi Ave 2, #02-25")
+            .withRoom("#3-118-A")
             .withEmail("johnd@example.com").withPhone("98765432")
             .withTags("owesMoney", "friends").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withRoom("wall street").build();
+            .withEmail("heinz@example.com").withRoom("#11-004-C").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withRoom("10th street").withTags("friends").build();
+            .withEmail("cornelia@example.com").withRoom("#9-999-Z").withTags("friends").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
-            .withEmail("werner@example.com").withRoom("michegan ave").build();
+            .withEmail("werner@example.com").withRoom("#2-010-B").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withRoom("little tokyo").build();
+            .withEmail("lydia@example.com").withRoom("#10-101-E").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withRoom("4th street").build();
+            .withEmail("anna@example.com").withRoom("#1-001-A").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").withRoom("little india").build();
+            .withEmail("stefan@example.com").withRoom("#4-444-D").build();
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").withRoom("chicago ave").build();
+            .withEmail("hans@example.com").withRoom("#12-120-F").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)

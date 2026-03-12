@@ -27,19 +27,23 @@ public class RoomTest {
         // invalid rooms
         assertFalse(Room.isValidRoom("")); // empty string
         assertFalse(Room.isValidRoom(" ")); // spaces only
+        assertFalse(Room.isValidRoom("#14-203-d")); // letter must be uppercase
+        assertFalse(Room.isValidRoom("#123-203-D")); // block must be 1-2 digits
+        assertFalse(Room.isValidRoom("#14-20-D")); // room must be 3 digits
+        assertFalse(Room.isValidRoom("14-203-D")); // missing leading '#'
 
         // valid rooms
-        assertTrue(Room.isValidRoom("Blk 456, Den Road, #01-355"));
-        assertTrue(Room.isValidRoom("-")); // one character
-        assertTrue(Room.isValidRoom("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long room
+        assertTrue(Room.isValidRoom("#14-203-D"));
+        assertTrue(Room.isValidRoom("#1-000-A"));
+        assertTrue(Room.isValidRoom("#99-999-Z"));
     }
 
     @Test
     public void equals() {
-        Room room = new Room("Valid Room");
+        Room room = new Room("#14-203-D");
 
         // same values -> returns true
-        assertTrue(room.equals(new Room("Valid Room")));
+        assertTrue(room.equals(new Room("#14-203-D")));
 
         // same object -> returns true
         assertTrue(room.equals(room));
@@ -51,6 +55,6 @@ public class RoomTest {
         assertFalse(room.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(room.equals(new Room("Other Valid Room")));
+        assertFalse(room.equals(new Room("#3-118-A")));
     }
 }
