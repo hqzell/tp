@@ -1,14 +1,19 @@
 {
-  "persons": [ {
-    "name": "Alice Pauline",
-    "phone": "94351253",
-    "email": "alice@example.com",
-    "room": "#14-203-D",
-    "tags": [ "friends" ]
-  }, {
-    "name": "Alice Pauline",
-    "phone": "94351253",
-    "email": "pauline@example.com",
-    "room": "#14-203-D"
-  } ]
+  "persons": [
+    {
+      "name": "Alice Pauline",
+      "phone": "94351253",
+      "email": "alice@example.com",
+      "room": "#14-203-D",
+      "tags": [
+        "friends"
+      ]
+    },
+    {
+      "name": "Alice Pauline",
+      "phone": "94351253",
+      "email": "pauline@example.com",
+      "room": "#14-203-D"
+    }
+  ]
 }
