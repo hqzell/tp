@@ -55,7 +55,7 @@ RACE acts as an **information navigator**, not a communication platform.
 
 ### Orientation Onboarding
 
-An RA needs to register dozens of new residents quickly during orientation.  
+An RA needs to register dozens of new residents quickly during orientation.
 RACE allows rapid entry of structured resident data so onboarding can be completed efficiently.
 
 ### Emergency Situations
@@ -64,12 +64,12 @@ If a fire alarm goes off, the RA can quickly check which residents are supposed 
 
 ### Mid-Semester Updates
 
-Residents may change rooms or update their contact details.  
+Residents may change rooms or update their contact details.
 The RA can easily search for a resident and edit their information.
 
 ### Semester Turnover
 
-At the end of the semester, some residents move out while new ones arrive.  
+At the end of the semester, some residents move out while new ones arrive.
 RACE helps RAs clean up or archive records without losing important information.
 
 ---
