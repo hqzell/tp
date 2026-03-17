@@ -275,7 +275,7 @@ To support quick retrieval of information, the user should be able to search for
 
 To ensure records remain accurate over time, the RA should be able to update resident details whenever information changes. The user should also be able to remove resident records that are no longer needed, ensuring the system remains organised and uncluttered.
 
-Finally, the system should support basic usability and flexibility. A new RA should be able to understand what the system is meant to help them do, such as through clear guidance or documentation, so that they can quickly learn how the system supports their role. Additionally, the RA should be able to add a resident even if some optional fields are missing, ensuring that incomplete information does not prevent onboarding during busy periods.               | 
+Finally, the system should support basic usability and flexibility. A new RA should be able to understand what the system is meant to help them do, such as through clear guidance or documentation, so that they can quickly learn how the system supports their role. Additionally, the RA should be able to add a resident even if some optional fields are missing, ensuring that incomplete information does not prevent onboarding during busy periods.
 
 ### Use cases
 
