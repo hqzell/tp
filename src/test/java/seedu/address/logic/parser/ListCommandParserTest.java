@@ -26,6 +26,6 @@ public class ListCommandParserTest {
         assertParseFailure(parser, " random text", String
                 .format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " s/", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, " s/invalid", "Invalid sort field! Supported fields: name, room");
+        assertParseFailure(parser, " s/invalid", "Invalid sort field! Supported fields: name, room, phone, email");
     }
 }

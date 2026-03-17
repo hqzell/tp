@@ -46,9 +46,13 @@ public class ListCommandParser implements Parser<ListCommand> {
         case "name":
             return new ListCommand("name", (p1, p2) -> p1.getName().fullName.compareToIgnoreCase(p2.getName().fullName));
         case "room":
-            return new ListCommand("room", (p1, p2) -> p1.getRoom().value.compareToIgnoreCase(p2.getRoom().value));
+            return new ListCommand("room", (p1, p2) -> p1.getRoom().compareTo(p2.getRoom()));
+        case "phone":
+            return new ListCommand("phone", (p1, p2) -> p1.getPhone().value.compareTo(p2.getPhone().value));
+        case "email":
+            return new ListCommand("email", (p1, p2) -> p1.getEmail().value.compareToIgnoreCase(p2.getEmail().value));
         default:
-            throw new ParseException("Invalid sort field! Supported fields: name, room");
+            throw new ParseException("Invalid sort field! Supported fields: name, room, phone, email");
         }
     }
 }

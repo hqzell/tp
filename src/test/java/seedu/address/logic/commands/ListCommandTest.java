@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -45,6 +44,14 @@ public class ListCommandTest {
         ListCommand listCommand = new ListCommand("name", (p1, p2) -> p1.getName().fullName.compareToIgnoreCase(p2.getName().fullName));
         String expectedMessage = String.format(ListCommand.MESSAGE_SUCCESS_SORTED, "name");
         expectedModel.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS, (p1, p2) -> p1.getName().fullName.compareToIgnoreCase(p2.getName().fullName));
+        assertCommandSuccess(listCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_listSortedByRoom_success() {
+        ListCommand listCommand = new ListCommand("room", (p1, p2) -> p1.getRoom().compareTo(p2.getRoom()));
+        String expectedMessage = String.format(ListCommand.MESSAGE_SUCCESS_SORTED, "room");
+        expectedModel.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS, (p1, p2) -> p1.getRoom().compareTo(p2.getRoom()));
         assertCommandSuccess(listCommand, model, expectedMessage, expectedModel);
     }
 
