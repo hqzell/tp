@@ -27,7 +27,7 @@ public class RemarkCommandParserTest {
     }
 
     @Test
-    public void parse_blankRemark_treatedAsEmpty_success() {
+    public void parse_blankRemarkTreatedAsEmpty_success() {
         Index targetIndex = INDEX_FIRST_PERSON;
         RemarkCommand expectedCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(""));
 
