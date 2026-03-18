@@ -25,7 +25,7 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(invalidCommandFormatMessage, pe);
         }
 
         // When the remark command is used, the user must provide a r/ arg
