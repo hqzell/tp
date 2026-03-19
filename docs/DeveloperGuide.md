@@ -307,6 +307,36 @@ Felix is a Year 3 Soc student and RA at Acacia College. Approachable and proacti
 
       Use case resumes at step 2.
 
+**Use case: Add or clear a resident remark**
+
+**MSS**
+
+1. User requests to list residents or find a resident.
+2. System shows a list of residents with their indices.
+3. User requests to add a remark to a specific resident in the list.
+4. System updates the resident's remark.
+5. System shows the updated resident list.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. System shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The user provides `r/` with no text.
+
+    * 3b1. System clears the resident's existing remark.
+
+      Use case ends.
+
 **Use case: Batch Onboarding**
 
 **MSS**
