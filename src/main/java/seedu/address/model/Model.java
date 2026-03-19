@@ -91,4 +91,9 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter and sort order of the person list.
+     */
+    void updateFilteredPersonList(Predicate<Person> predicate, java.util.Comparator<Person> comparator);
 }

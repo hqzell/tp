@@ -89,9 +89,17 @@ Examples:
 
 ### Listing all persons : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all persons in the address book. Optionally, sorts the list by a specific field.
 
-Format: `list`
+Format: `list [s/FIELD]`
+
+* Supported fields for `FIELD`: `name`, `room`, `phone`, `email`.
+* If `s/FIELD` is omitted, the default order is used (chronological by addition).
+
+Examples:
+* `list` Lists all residents.
+* `list s/room` Lists all residents sorted by room number.
+* `list s/name` Lists all residents sorted by name (case-insensitive).
 
 ### Editing a person : `edit`
 
@@ -203,5 +211,5 @@ Action | Format, Examples
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/e1234567@u.nus.edu`
 **Find** | `find KEYWORD [MORE_KEYWORDS]` or `find ROOM`<br> e.g., `find James Jake`, `find #14-203-D`
-**List** | `list`
+**List** | `list [s/FIELD]` <br> e.g., `list s/room`
 **Help** | `help`

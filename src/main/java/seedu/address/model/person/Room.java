@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Person's room number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidRoom(String)}
  */
-public class Room {
+public class Room implements Comparable<Room> {
 
     public static final String MESSAGE_CONSTRAINTS =
         "Room must follow the format #FLOOR-UNIT[-LETTER], where floor is 1-2 digits, "
@@ -62,6 +62,30 @@ public class Room {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    @Override
+    public int compareTo(Room other) {
+        // Format: #FLOOR-UNIT[-LETTER] (letter is optional)
+        String[] parts1 = this.value.substring(1).split("-");
+        String[] parts2 = other.value.substring(1).split("-");
+
+        int floor1 = Integer.parseInt(parts1[0]);
+        int floor2 = Integer.parseInt(parts2[0]);
+        if (floor1 != floor2) {
+            return floor1 - floor2;
+        }
+
+        int unit1 = Integer.parseInt(parts1[1]);
+        int unit2 = Integer.parseInt(parts2[1]);
+        if (unit1 != unit2) {
+            return unit1 - unit2;
+        }
+
+        // Handle optional letter part
+        String letter1 = parts1.length > 2 ? parts1[2] : "";
+        String letter2 = parts2.length > 2 ? parts2[2] : "";
+        return letter1.compareTo(letter2);
     }
 
 }

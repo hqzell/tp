@@ -58,4 +58,37 @@ public class RoomTest {
         // different values -> returns false
         assertFalse(room.equals(new Room("#3-118-A")));
     }
+
+    @Test
+    public void hashCode_sameValues_sameHashCode() {
+        Room room1 = new Room("#14-203-D");
+        Room room2 = new Room("#14-203-D");
+        assertTrue(room1.hashCode() == room2.hashCode());
+    }
+
+    @Test
+    public void compareTo() {
+        Room roomLower = new Room("#01-101-A");
+        Room roomHigherBlock = new Room("#02-101-A");
+        Room roomHigherUnit = new Room("#01-102-A");
+        Room roomHigherLetter = new Room("#01-101-B");
+
+        // same values -> returns 0
+        assertTrue(roomLower.compareTo(new Room("#01-101-A")) == 0);
+
+        // higher block -> returns negative
+        assertTrue(roomLower.compareTo(roomHigherBlock) < 0);
+        // lower block -> returns positive
+        assertTrue(roomHigherBlock.compareTo(roomLower) > 0);
+
+        // higher unit -> returns negative
+        assertTrue(roomLower.compareTo(roomHigherUnit) < 0);
+        // lower unit -> returns positive
+        assertTrue(roomHigherUnit.compareTo(roomLower) > 0);
+
+        // higher letter -> returns negative
+        assertTrue(roomLower.compareTo(roomHigherLetter) < 0);
+        // lower letter -> returns positive
+        assertTrue(roomHigherLetter.compareTo(roomLower) > 0);
+    }
 }

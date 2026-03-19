@@ -123,7 +123,8 @@ How the parsing works:
 The `Model` component,
 
 * stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list, which is in turn wrapped by a `SortedList` to support sorting.
+* exposes the final processed list to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
@@ -239,9 +240,27 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Data archiving
+### Sorting Feature
 
-_{Explain here how the data archiving feature will be implemented}_
+#### Implementation
+
+The sorting feature is integrated into the `list` command. It allows users to view all residents ordered by a chosen field (name, room, phone, or email).
+
+The implementation relies on JavaFX's `SortedList`, which is initialized in `ModelManager` to wrap around the `filteredPersons` list. This architectural choice ensures that whenever the filter changes (e.g., via `find`), the sort order can still be applied to the filtered subset.
+
+1.  `ListCommandParser` identifies the `s/` prefix and maps the field name to a corresponding `Comparator<Person>`.
+2.  `ListCommand` is created with the field name and its comparator.
+3.  Upon execution, `ListCommand` calls `Model#updateFilteredPersonList(Predicate, Comparator)`.
+4.  `ModelManager` sets the filter on its `FilteredList` and the comparator on its `SortedList`.
+5.  If a simple `list` (without parameters) or a filtering command (like `find`) is used, the sort comparator is reset to `null`.
+
+#### Design considerations
+
+**Aspect: How sorting interacts with filtering**
+
+*   **Choice (current):** Sort order is reset when a new filter is applied unless specified via `list s/`.
+    *   Pros: Predictable behavior; users always see the list state they explicitly requested.
+    *   Cons: Users cannot "keep" a sort order while performing multiple different searches without re-specifying the sort field.
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -275,7 +294,7 @@ To support quick retrieval of information, the user should be able to search for
 
 To ensure records remain accurate over time, the RA should be able to update resident details whenever information changes. The user should also be able to remove resident records that are no longer needed, ensuring the system remains organised and uncluttered.
 
-Finally, the system should support basic usability and flexibility. A new RA should be able to understand what the system is meant to help them do, such as through clear guidance or documentation, so that they can quickly learn how the system supports their role. Additionally, the RA should be able to add a resident even if some optional fields are missing, ensuring that incomplete information does not prevent onboarding during busy periods.               | 
+Finally, the system should support basic usability and flexibility. A new RA should be able to understand what the system is meant to help them do, such as through clear guidance or documentation, so that they can quickly learn how the system supports their role. Additionally, the RA should be able to add a resident even if some optional fields are missing, ensuring that incomplete information does not prevent onboarding during busy periods.
 
 ### Use cases
 
@@ -460,6 +479,21 @@ testers are expected to do more *exploratory* testing.
        Expected: The most recent window size and location is retained.
 
 1. _{ more test cases …​ }_
+
+### Sorting residents
+
+1. Sorting residents by different fields
+
+   1. Prerequisites: Multiple residents with different names, rooms, and phone numbers.
+   
+   1. Test case: `list s/room`<br>
+      Expected: List is updated to show all residents sorted by room number (format: #BLOCK-ROOM-LETTER). Status message confirms sorting.
+
+   1. Test case: `list s/phone`<br>
+      Expected: List is updated to show all residents sorted by their phone numbers.
+
+   1. Test case: `list s/invalid`<br>
+      Expected: No sorting occurs. Error message "Invalid sort field! Supported fields: name, room, phone, email" is displayed.
 
 ### Deleting a person
 
