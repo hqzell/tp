@@ -512,6 +512,21 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+### Editing a person's remark
+
+1. Adding or clearing a remark while all persons are being shown
+
+   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+   1. Test case: `remark 1 r/Requires wheelchair-accessible venue`<br>
+      Expected: The first person's remark is updated. The success message is shown in the result display. The person card shows the new remark.
+
+   1. Test case: `remark 1 r/`<br>
+      Expected: The first person's remark is removed. The success message is shown in the result display. The remark label is no longer shown on the person card.
+
+   1. Other incorrect remark commands to try: `remark`, `remark 1`, `remark 0 r/test`, `remark x r/test`, `remark 1 r/first r/second`<br>
+      Expected: No person's remark is changed. Error details are shown in the result display.
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
