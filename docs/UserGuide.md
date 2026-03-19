@@ -114,7 +114,7 @@ Examples:
 
 Adds a remark to a person in the address book, or removes the existing remark.
 
-Format: `remark INDEX r/REMARK`
+Format: `remark INDEX r/[REMARK]`
 
 * Adds or updates the remark of the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
