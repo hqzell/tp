@@ -7,6 +7,7 @@ plugins {
 }
 
 mainClassName = 'seedu.address.Main'
+applicationDefaultJvmArgs = ['-ea']
 
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
@@ -22,6 +23,7 @@ checkstyle {
 
 test {
     useJUnitPlatform()
+    jvmArgs '-ea'
     finalizedBy jacocoTestReport
 }
 
