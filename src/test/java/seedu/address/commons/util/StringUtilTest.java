@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 public class StringUtilTest {
 
-    //---------------- Tests for isNonZeroUnsignedInteger --------------------------------------
+    // ---------------- Tests for isNonZeroUnsignedInteger --------------------------------------
 
     @Test
     public void isNonZeroUnsignedInteger() {
@@ -46,7 +46,7 @@ public class StringUtilTest {
     }
 
 
-    //---------------- Tests for containsWordIgnoreCase --------------------------------------
+    // ---------------- Tests for containsWordIgnoreCase --------------------------------------
 
     /*
      * Invalid equivalence partitions for word: null, empty, multiple words
@@ -123,7 +123,7 @@ public class StringUtilTest {
         assertTrue(StringUtil.containsWordIgnoreCase("AAA bBb ccc  bbb", "bbB"));
     }
 
-    //---------------- Tests for getDetails --------------------------------------
+    // ---------------- Tests for getDetails --------------------------------------
 
     /*
      * Equivalence Partitions: null, valid throwable object
