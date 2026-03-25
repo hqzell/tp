@@ -26,7 +26,6 @@ public enum TagType {
     /**
      * Converts a string to a TagType (case-insensitive).
      */
-    
     public static TagType fromString(String input) {
         assert input != null : "Tag input should not be null";
         String normalized = input.trim();
