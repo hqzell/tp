@@ -43,21 +43,27 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        // Use the currently filtered list so the displayed indices map to the same persons.
         List<Person> lastShownList = model.getFilteredPersonList();
 
+        // Track indices we've already processed so duplicate indices don't cause double-deletes.
         Set<Integer> seenZeroBasedIndices = new HashSet<>();
+        // Collect persons to delete first, so we can delete after validation/deduping.
         List<Person> personsToDelete = new ArrayList<>();
         for (Index targetIndex : targetIndices) {
             int zeroBasedIndex = targetIndex.getZeroBased();
             if (zeroBasedIndex >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
+            // Happens when the user provides duplicate indices (e.g., `delete 1 1 2`).
+            // We skip already-processed indices to avoid deleting the same person twice.
             if (!seenZeroBasedIndices.add(zeroBasedIndex)) {
                 continue;
             }
             personsToDelete.add(lastShownList.get(zeroBasedIndex));
         }
 
+        // Perform the actual deletions.
         for (Person personToDelete : personsToDelete) {
             model.deletePerson(personToDelete);
         }
@@ -67,6 +73,7 @@ public class DeleteCommand extends Command {
                     String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personsToDelete.get(0))));
         }
 
+        // Multiple deletions: format each deleted person on its own line.
         String deletedPersonsMessage = personsToDelete.stream()
                 .map(Messages::format)
                 .collect(Collectors.joining("\n"));
