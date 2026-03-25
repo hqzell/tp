@@ -4,11 +4,12 @@ skinparam classAttributeIconSize 0
 
 Class "<<interface>>\nParser" as Parser
 Class CommentCommandParser {
-  +parse(): CommentCommand
+  +parse(String): CommentCommand
 }
-Class ParserException
+Class ParseException
 
 CommentCommandParser .up.|> Parser
-Parser .right.> ParserException: throws >
-CommentCommandParser .right.> ParserException: throws >
+CommentCommandParser .up.> CommentCommand
+Parser .right.> ParseException: throws >
+CommentCommandParser .right.> ParseException: throws >
 @enduml
