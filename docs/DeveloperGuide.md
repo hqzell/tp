@@ -518,7 +518,7 @@ testers are expected to do more *exploratory* testing.
 1. Sorting residents by different fields
 
    1. Prerequisites: Multiple residents with different names, rooms, and phone numbers.
-   
+
    1. Test case: `list s/room`<br>
       Expected: List is updated to show all residents sorted by room number (format: #BLOCK-ROOM-LETTER). Status message confirms sorting.
 

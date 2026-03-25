@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = 
+    public static final String MESSAGE_CONSTRAINTS =
         "Tags must be one of the following: Vegetarian, Vegan, Halal, Allergies";
 
     public final TagType tagType;
