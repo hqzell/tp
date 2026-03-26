@@ -225,7 +225,7 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME [p/PHONE] [e/EMAIL] r/ROOM [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/e1234567@u.nus.edu r/#14-203-D t/friend t/colleague`
+**Add** | `add n/NAME [p/PHONE] [e/EMAIL] [r/ROOM [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/e1234567@u.nus.edu r/#14-203-D t/friend t/colleague`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROOM] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/e1234567@u.nus.edu`
