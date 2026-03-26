@@ -26,6 +26,7 @@ import seedu.address.model.tag.Tag;
 public class AddCommandParser implements Parser<AddCommand> {
     public static final String DEFAULT_PHONE = "";
     public static final String DEFAULT_EMAIL = "";
+    public static final String DEFAULT_COMMENT = "";
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values
@@ -63,7 +64,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         // Adding comment straight away not supported
-        Comment comment = new Comment("");
+        Comment comment = new Comment(DEFAULT_COMMENT);
 
         Person person = new Person(name, phone, email, room, comment, tagList);
 
