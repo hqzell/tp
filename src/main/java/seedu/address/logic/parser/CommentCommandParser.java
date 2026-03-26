@@ -32,7 +32,7 @@ public class CommentCommandParser implements Parser<CommentCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            logger.warning("Failed to parse index: " + pe.getMessage());
+            logger.warning("Failed to parse index: invalid index format");
             throw new ParseException(invalidCommandFormatMessage, pe);
         }
 
@@ -48,8 +48,7 @@ public class CommentCommandParser implements Parser<CommentCommand> {
         }
         Comment comment = new Comment(commentText);
 
-        logger.info("Successfully parsed comment command: index=" + index.getOneBased()
-                + ", comment=\"" + comment.value + "\"");
+        logger.info("Successfully parsed comment command: index=" + index.getOneBased());
         return new CommentCommand(index, comment);
     }
 }

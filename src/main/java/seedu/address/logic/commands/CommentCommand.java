@@ -63,8 +63,7 @@ public class CommentCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        logger.info("Editing comment for person: " + personToEdit.getName() + " | Old comment: "
-                + personToEdit.getComment().value + " | New comment: " + comment.value);
+        logger.fine("EditComment executed for index: " + index.getZeroBased());
 
         Person editedPerson = new Person(
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
@@ -73,7 +72,7 @@ public class CommentCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        logger.info("Comment updated successfully for: " + editedPerson.getName());
+        logger.fine("EditComment completed for index: " + index.getZeroBased());
         return new CommandResult(generateSuccessMessage(personToEdit, editedPerson));
     }
 
