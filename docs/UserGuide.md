@@ -28,7 +28,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/e1234567@u.nus.edu a/#01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/e1234567@u.nus.edu r/#01-01` : Adds a contact named `John Doe` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -77,35 +77,35 @@ Format: `help`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME [p/PHONE] [e/EMAIL] r/ROOM [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/e1234567@u.nus.edu a/#14-203-D`
-* `add n/Betsy Crowe t/friend e/e4567890@u.nus.edu a/#10-10 p/1234567 t/vegetarian`
+* `add n/John Doe p/98765432 e/e1234567@u.nus.edu r/#14-203-D`
+* `add n/Betsy Crowe t/friend e/e4567890@u.nus.edu r/#10-10 p/1234567 t/vegetarian`
 
 ### Listing all persons : `list`
 
 Shows a list of all persons in the address book. Optionally, sorts the list by a specific field.
 
-Format: `list [s/FIELD]`
+Format: `list [-sort PREFIX]`
 
-* Supported fields for `FIELD`: `name`, `room`, `phone`, `email`.
-* If `s/FIELD` is omitted, the default order is used (chronological by addition).
+* Supported field prefixes for `PREFIX`: `n/` (name), `r/` (room), `p/` (phone), `e/` (email).
+* If `-sort PREFIX` is omitted, the default order is used (chronological by addition).
 
 Examples:
 * `list` Lists all residents.
-* `list s/room` Lists all residents sorted by room number.
-* `list s/name` Lists all residents sorted by name (case-insensitive).
+* `list -sort r/` Lists all residents sorted by room number.
+* `list -sort n/` Lists all residents sorted by name (case-insensitive).
 
 ### Editing a person : `edit`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROOM] [t/TAG]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -225,11 +225,11 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/e1234567@u.nus.edu a/#14-203-D t/friend t/colleague`
+**Add** | `add n/NAME [p/PHONE] [e/EMAIL] [r/ROOM [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/e1234567@u.nus.edu r/#14-203-D t/friend t/colleague`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/e1234567@u.nus.edu`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROOM] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/e1234567@u.nus.edu`
 **Find** | `find KEYWORD [MORE_KEYWORDS]` or `find ROOM`<br> e.g., `find James Jake`, `find #14-203-D`
-**List** | `list [s/FIELD]` <br> e.g., `list s/room`
+**List** | `list [-sort PREFIX]` <br> e.g., `list -sort r/`
 **Help** | `help`
 **Comment** | `comment INDEX c/COMMENT`<br> e.g., `comment 1 c/Prefers WhatsApp messages before visits`, `comment 3 c/`

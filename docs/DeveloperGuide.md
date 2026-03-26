@@ -249,7 +249,7 @@ The sorting feature is integrated into the `list` command. It allows users to vi
 
 The implementation relies on JavaFX's `SortedList`, which is initialized in `ModelManager` to wrap around the `filteredPersons` list. This architectural choice ensures that whenever the filter changes (e.g., via `find`), the sort order can still be applied to the filtered subset.
 
-1.  `ListCommandParser` identifies the `s/` prefix and maps the field name to a corresponding `Comparator<Person>`.
+1.  `ListCommandParser` identifies the `-sort` option and maps the following field prefix (`n/`, `r/`, `p/`, `e/`) to a corresponding `Comparator<Person>`.
 2.  `ListCommand` is created with the field name and its comparator.
 3.  Upon execution, `ListCommand` calls `Model#updateFilteredPersonList(Predicate, Comparator)`.
 4.  `ModelManager` sets the filter on its `FilteredList` and the comparator on its `SortedList`.
@@ -259,7 +259,7 @@ The implementation relies on JavaFX's `SortedList`, which is initialized in `Mod
 
 **Aspect: How sorting interacts with filtering**
 
-*   **Choice (current):** Sort order is reset when a new filter is applied unless specified via `list s/`.
+*   **Choice (current):** Sort order is reset when a new filter is applied unless specified via `list -sort <prefix>/`.
     *   Pros: Predictable behavior; users always see the list state they explicitly requested.
     *   Cons: Users cannot "keep" a sort order while performing multiple different searches without re-specifying the sort field.
 
@@ -519,14 +519,14 @@ testers are expected to do more *exploratory* testing.
 
    1. Prerequisites: Multiple residents with different names, rooms, and phone numbers.
    
-   1. Test case: `list s/room`<br>
+   1. Test case: `list -sort r/`<br>
       Expected: List is updated to show all residents sorted by room number (format: #BLOCK-ROOM-LETTER). Status message confirms sorting.
 
-   1. Test case: `list s/phone`<br>
+   1. Test case: `list -sort p/`<br>
       Expected: List is updated to show all residents sorted by their phone numbers.
 
-   1. Test case: `list s/invalid`<br>
-      Expected: No sorting occurs. Error message "Invalid sort field! Supported fields: name, room, phone, email" is displayed.
+   1. Test case: `list -sort x/`<br>
+      Expected: No sorting occurs. Error message "Invalid sort field! Supported field prefixes: n/, r/, p/, e/" is displayed.
 
 ### Deleting a person
 
