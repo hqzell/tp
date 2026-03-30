@@ -143,75 +143,179 @@ Examples:
 *  `edit 1 p/91234567 e/e1222222@u.nus.edu` Edits the phone number and email address of the 1st person to be `91234567` and `e1222222@u.nus.edu` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-### Adding or removing a comment : `comment`
+### 📝 Commenting on a resident: `comment`
 
-Adds a comment to a person in the address book, or removes the existing comment.
+Adds, edits, or deletes a comment for a specific resident.
 
 Format: `comment INDEX c/[COMMENT]`
 
-* Adds or updates the comment of the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* Any existing comment will be overwritten by the new comment.
-* Leading and trailing whitespace in the comment is ignored.
-* If the comment is blank after trimming whitespace, it is treated as empty.
-* You can remove a person's comment by typing `comment INDEX c/`.
+Expected Output:
+* When adding/updating:  
+  `Added comment to Person: NAME; ...`
+* When deleting (empty comment):  
+  `Removed comment from Person: NAME; ...`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Note:**
+* The `INDEX` refers to the unique numbered position shown in the current list (via `list` or `find`). The `INDEX` must be a positive integer (1, 2, 3, …).
+* A new comment will overwrite any existing comment.
+* To delete a comment, use `c/` with no text.
+* Leading and trailing spaces in comments are ignored.
+* If the comment only contains whitespace, it is treated as empty.
+</div>
 
 Examples:
-* `comment 1 c/Prefers WhatsApp messages before visits` adds a comment to the 1st person.
-* `comment 2 c/Has collected the room key` updates the comment of the 2nd person.
-* `comment 3 c/` removes the comment from the 3rd person.
+**Input → Expected Output**
+* `comment 1 c/Prefers WhatsApp messages before visits`  
+  → Adds a new comment to the 1st resident  
+* `comment 2 c/Lost room key on 15 Mar`  
+  → Replaces existing comment  
+* `comment 3 c/`  
+  → Deletes the existing comment  
 
-### Locating persons by name or room: `find`
+Warnings:
+* Invalid index → `The person index provided is invalid.`
+* Missing parameters → `Invalid command format!`
 
-Finds persons whose names contain any of the given keywords, or whose room matches the given room exactly.
+<div markdown="span" class="alert alert-primary">:bulb: **Tips:**
+* Use comments to log important interactions (e.g., maintenance issues, noise complaints, welfare check-ins).
+* Use `comment INDEX c/` to quickly clear outdated notes.
+</div>
+
+### 🔍 Finding residents by name or room: `find`
+
+Finds residents by name (matches names containing any keyword) or by exact room.
 
 Format:
 * `find KEYWORD [MORE_KEYWORDS]`
 * `find ROOM`
 
-* For name searches:
-  * The search is case-insensitive. e.g. `hans` will match `Hans`.
-  * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
-  * Only the name is searched.
-  * Only full words will be matched e.g. `Han` will not match `Hans`.
-  * Persons matching at least one keyword will be returned (i.e. `OR` search),
-    e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
-* For room searches:
-  * The room must follow the format `#BLOCK-ROOM-LETTER` (e.g. `#14-203-D`).
-  * The match is exact: only residents whose room is exactly the given room are returned.
+Expected Output:
+`X persons listed!`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Note:**
+
+**Name search**
+* Case-insensitive (e.g., `hans` matches `Hans`)
+* Matches full words only (e.g., `Han` does not match `Hans`)
+* Keyword order does not matter (e.g., `find Hans Bo` matches `Bo Hans`)
+* Uses OR logic (e.g., `find Hans Bo` returns `Hans Bo`, `Bo Tan`)
+
+**Room search**
+* Must match exact format `#BLOCK-ROOM-LETTER` (e.g., `#14-203-D`)
+* Matches must be exact (e.g., `#05-203-D` ≠ `#5-203-D`)
+</div>
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`
-* `find #14-203-D` returns all residents staying in room `#14-203-D` (if any)<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+**Input → Expected Output**
+* `find John`  
+  → Shows residents named `john`, `John Doe`
+* `find alex david`  
+  → Shows residents `Alex Yeoh`, `David Li`
+* `find #14-203-D`  
+  → Shows residents in that room  
 
-### Deleting a person : `delete`
+Warnings:
+* No input provided → `Invalid command format!`
 
-Deletes the specified person from the address book.
+<div markdown="span" class="alert alert-primary">:bulb: **Tips:**
+* Use multiple keywords to quickly find groups (e.g., `find Alex Bob David Hannah`).
+* Combine with other commands for efficiency:
+  * `find Alex` → `delete 1`
+  * `find Alex` → `edit 1 r/#14-205`
+</div>
+
+### 🗑️ Deleting a resident: `delete`
+
+Deletes a resident from the address book.
 
 Format: `delete INDEX`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+Expected Output:
+`Deleted Person: NAME; Phone: PHONE; Email: EMAIL; ...`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Note:**
+* The `INDEX` refers to the position in the current list (`list` or `find`).
+* The `INDEX` must be a positive integer (1, 2, 3, …).
+* Deletion is permanent and cannot be undone.
+</div>
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+**Input → Expected Output**
+* `delete 1`  
+  → Deletes the 1st resident  
+* `list` → `delete 3`  
+  → Deletes the 3rd resident in the list  
+* `find Alex` → `delete 1`  
+  → Deletes the first matching result  
 
-### Clearing all entries : `clear`
+Warnings:
+* Invalid index → `The person index provided is invalid.`
+* Missing index → `Invalid command format!`
 
-Clears all entries from the address book.
+<div markdown="span" class="alert alert-primary">:bulb: **Tips:**
+* Always confirm the correct index using `list` or `find`.
+* Back up `data/addressbook.json` before bulk deletions.
+* After `find`, indices refer to filtered results (not the full list).
+</div>
+
+### 🧹 Clearing all residents: `clear`
+
+Clears all residents from the address book.
 
 Format: `clear`
 
-### Exiting the program : `exit`
+Expected Output:
+`Address book has been cleared!`
 
-Exits the program.
+<div markdown="span" class="alert alert-primary">:bulb: **Note:**
+* This action removes all data permanently and cannot be undone.
+</div>
+
+Examples:
+**Input → Expected Output**
+* `clear`  
+  → Removes all residents  
+* `clear abc`  
+  → Still removes all residents (extra input ignored)  
+
+Warnings:
+* None (unless command is misspelled)
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tips:**
+* Use `clear` at the start of a new semester to reset the system.
+* Back up `data/addressbook.json` before using this command.
+* Avoid accidental execution.
+</div>
+
+### 🚪 Exiting the program: `exit`
+
+Closes the application.
 
 Format: `exit`
+
+Expected Output:
+`Exiting Address Book as requested ...`  
+(Application window closes)
+
+<div markdown="span" class="alert alert-primary">:bulb: **Note:**
+* All data is automatically saved before exiting.
+</div>
+
+Examples:
+**Input → Expected Output**
+* `exit`  
+  → Closes the application  
+* `exit 123`  
+  → Still exits (extra input ignored)  
+
+Warnings:
+* None (unless command is misspelled)
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tips:**
+* Use `exit` for quick keyboard-based closing.
+* You can also close the window manually — data is auto-saved.
+* Ensure all tasks are completed before exiting.
+</div>
 
 ### Saving the data
 
