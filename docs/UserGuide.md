@@ -380,8 +380,14 @@ _Details coming soon ..._
 
 ## Known issues
 
-1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+1. **Window position and size may be restored poorly after display changes.** If you move the app to another screen, change to a smaller screen, or use a lower resolution, the app may reopen partially or fully off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
+2. **If you minimize the Help Window** and then run the `help` command again (or use the `Help` menu, or the keyboard shortcut `F1`), the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+3. **Closing the app with the window close button behaves differently from using `exit`.** The latest window size and position may not be saved, and if the Help Window is still open, the application may continue running until that window is also closed.
+4. **Sample data on first launch is not written to disk immediately.** If no data file exists yet, the app starts with sample residents in memory. If you close the app immediately without running a successful command, `data/addressbook.json` may not be created yet.
+5. **Malformed multi-delete input with a trailing comma may still be accepted.** For example, `delete 1,` may be treated as valid input instead of being rejected. Avoid trailing commas when deleting multiple residents.
+6. **Removing a comment may produce an awkward confirmation message.** After `comment INDEX c/`, the success message may show a blank `Comment:` field instead of clearly stating that the comment was removed.
+7. **Unsupported prefixes may sometimes lead to misleading error messages.** For example, using `c/` inside `add` is not supported, but the app may treat it as part of the previous field and report a room or tag format error instead of a clearer usage error.
+8. **If the app fails very early during startup, the intended fatal error dialog may not appear.** In that case, the app may terminate abruptly instead of showing a proper error message.
 
 --------------------------------------------------------------------------------------------------------------------
 
