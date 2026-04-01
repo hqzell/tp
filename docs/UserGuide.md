@@ -352,8 +352,7 @@ _Details coming soon ..._
 ### Rules and limitations
 
 **Q**: Can I add two residents with the same name?<br>
-**A**: No. The app treats residents with the same name as duplicates, even if their other details are different. Try to add extra words to the name unique to each resident, e.g., 
-
+**A**: No. The app treats residents with the same name as duplicates, even if their other details are different. Try adding unique qualifiers to the name, e.g., `Alex Tan (Block 14)` and `Alex Tan (Block 9)`.
 **Q**: Can I delete more than one resident at once?<br>
 **A**: Yes. You can delete multiple residents in one command by providing multiple indices.
 
