@@ -12,11 +12,11 @@ import java.util.logging.Logger;
 public class Tag {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Tags must be one of the following: Vegetarian, Vegan, Halal, Allergies";
+            "Tags should only contain letters, numbers, spaces, and hyphens, and it should not be blank. "
+                    + "Kebab-case is recommended for consistency.";
+    private static final String VALIDATION_REGEX = "[A-Za-z0-9][A-Za-z0-9 -]*";
 
-    private static final Logger logger = Logger.getLogger(Tag.class.getName());
-
-    public final TagType tagType;
+    private final String tagName;
 
     /**
      * Constructs a {@code Tag}.
