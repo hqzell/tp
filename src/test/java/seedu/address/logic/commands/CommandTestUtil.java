@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -34,8 +35,9 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ROOM_AMY = "#14-203-D";
     public static final String VALID_ROOM_BOB = "#3-118-A";
-    public static final String VALID_TAG_HALAL = "Halal";
-    public static final String VALID_TAG_ALLERGIES = "Allergies";
+    public static final String VALID_TAG_HALAL = "halal";
+    public static final String VALID_TAG_ALLERGIES = "allergies";
+    public static final String VALID_TAG_STUDY_GROUP = "study-group";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -48,6 +50,8 @@ public class CommandTestUtil {
     public static final String TAG_DESC_ALLERGIES = " " + PREFIX_TAG + VALID_TAG_ALLERGIES;
 
     public static final String TAG_DESC_HALAL = " " + PREFIX_TAG + VALID_TAG_HALAL;
+    public static final String TAG_DESC_STUDY_GROUP = " " + PREFIX_TAG + VALID_TAG_STUDY_GROUP;
+    public static final String NEWTAG_FLAG = " " + PREFIX_NEWTAG;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
