@@ -10,6 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_ROOM_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NEWTAG_FLAG;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
@@ -18,14 +19,17 @@ import static seedu.address.logic.commands.CommandTestUtil.ROOM_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ROOM_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_ALLERGIES;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HALAL;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_STUDY_GROUP;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ALLERGIES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HALAL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_STUDY_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -63,6 +67,11 @@ public class AddCommandParserTest {
         assertParseSuccess(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ROOM_DESC_BOB + TAG_DESC_ALLERGIES + TAG_DESC_HALAL,
                 new AddCommand(expectedPersonMultipleTags));
+
+        Person expectedPersonWithNewCustomTag = new PersonBuilder(BOB).withTags(VALID_TAG_STUDY_GROUP).build();
+        assertParseSuccess(parser,
+                NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ROOM_DESC_BOB + TAG_DESC_STUDY_GROUP + NEWTAG_FLAG,
+                new AddCommand(expectedPersonWithNewCustomTag, true));
     }
 
     @Test
@@ -216,5 +225,13 @@ public class AddCommandParserTest {
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                         + ROOM_DESC_BOB + TAG_DESC_ALLERGIES + TAG_DESC_HALAL,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+
+        // invalid newtag usage
+        assertParseFailure(parser, NAME_DESC_BOB + ROOM_DESC_BOB + NEWTAG_FLAG + " unexpected",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+
+        // duplicate newtag flag
+        assertParseFailure(parser, NAME_DESC_BOB + ROOM_DESC_BOB + TAG_DESC_STUDY_GROUP + NEWTAG_FLAG + NEWTAG_FLAG,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NEWTAG));
     }
 }
