@@ -10,6 +10,8 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -23,6 +25,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -54,6 +57,33 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_unknownCustomTagWithoutNewTagFlag_throwsCommandException() {
+        Person personWithCustomTag = new PersonBuilder().withTags("study-group").build();
+        AddCommand addCommand = new AddCommand(personWithCustomTag);
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+
+        assertThrows(CommandException.class,
+                String.format(
+                        AddCommand.MESSAGE_UNKNOWN_TAGS,
+                        "study-group",
+                        "-newtag",
+                        AddCommand.MESSAGE_USAGE_WITH_NEWTAG), () -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_newCustomTagWithNewTagFlag_addSuccessful() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person validPerson = new PersonBuilder().withTags("study-group").build();
+
+        CommandResult commandResult = new AddCommand(validPerson, true).execute(modelStub);
+
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertTrue(modelStub.customTagsAdded.contains(new Tag("study-group")));
+    }
+
+    @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
@@ -80,7 +110,8 @@ public class AddCommandTest {
     @Test
     public void toStringMethod() {
         AddCommand addCommand = new AddCommand(ALICE);
-        String expected = AddCommand.class.getCanonicalName() + "{toAdd=" + ALICE + "}";
+        String expected = AddCommand.class.getCanonicalName() + "{toAdd=" + ALICE
+                + ", shouldCreateNewTags=false}";
         assertEquals(expected, addCommand.toString());
     }
 
@@ -149,6 +180,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasTag(Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCustomTags(Set<Tag> tags) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -187,6 +228,7 @@ public class AddCommandTest {
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
+        final Set<Tag> customTagsAdded = new HashSet<>();
 
         @Override
         public boolean hasPerson(Person person) {
@@ -195,9 +237,21 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasTag(Tag tag) {
+            requireNonNull(tag);
+            return tag.isBuiltInTag() || customTagsAdded.contains(tag);
+        }
+
+        @Override
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
+        }
+
+        @Override
+        public void addCustomTags(Set<Tag> tags) {
+            requireNonNull(tags);
+            customTagsAdded.addAll(tags);
         }
 
         @Override
