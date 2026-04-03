@@ -9,8 +9,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.RoomEqualsPredicate;
+import seedu.address.model.person.PersonContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
 
@@ -25,7 +24,7 @@ public class FindCommandParserTest {
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand =
-                new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
+                new FindCommand(new PersonContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
         assertParseSuccess(parser, "Alice Bob", expectedFindCommand);
 
         // multiple whitespaces between keywords
@@ -33,9 +32,9 @@ public class FindCommandParserTest {
     }
 
     @Test
-    public void parse_validRoom_returnsFindCommandWithRoomPredicate() throws Exception {
+    public void parse_validRoomFragment_returnsFindCommandWithUnifiedPredicate() {
         String userInput = "  #14-2  ";
-        FindCommand expectedCommand = new FindCommand(new RoomEqualsPredicate("#14-2"));
+        FindCommand expectedCommand = new FindCommand(new PersonContainsKeywordsPredicate(Arrays.asList("#14-2")));
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
