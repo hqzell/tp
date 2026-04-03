@@ -1,0 +1,25 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+
+Class "{abstract}\nCommand" as Command {
+  +execute(Model): CommandResult
+}
+
+Class CommentCommand {
+  +COMMAND_WORD: String
+  +MESSAGE_USAGE: String
+  +MESSAGE_ADD_COMMENT_SUCCESS: String
+  +MESSAGE_DELETE_COMMENT_SUCCESS: String
+  +MESSAGE_UPDATE_COMMENT_SUCCESS: String
+  +MESSAGE_ARGUMENTS: String
+  +execute(Model): CommandResult
+}
+
+Class Comment
+Class Index
+
+CommentCommand -up-|> Command
+CommentCommand *-- "1" Comment
+CommentCommand -down-> "1" Index : references >
+@enduml

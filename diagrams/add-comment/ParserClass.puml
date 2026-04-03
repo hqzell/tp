@@ -1,0 +1,14 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+
+Class "<<interface>>\nParser<T extends Command>" as Parser {
+  +parse(String): T
+}
+Class CommentCommandParser {
+  +parse(String): CommentCommand
+}
+
+CommentCommandParser .up.|> Parser : T = CommentCommand
+CommentCommandParser ..> CommentCommand : <<create>>
+@enduml
