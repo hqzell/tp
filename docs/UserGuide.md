@@ -1,36 +1,23 @@
 ---
-layout: page
-title: User Guide
+  layout: default.md
+  title: "User Guide"
+  pageNav: 3
 ---
 # User Guide
 
->  **RACE (Residential Assistant’s Contact Entries)** is a desktop application for managing resident information, optimized for use via a Command Line Interface (CLI) while still providing the benefits of a Graphical User Interface (GUI). It allows Residential Assistants to quickly store, update, and retrieve resident details in a secure, centralised system, replacing fragmented and inefficient workflows. Fast CLI commands enable efficient data entry and management, especially during high-intensity periods like onboarding.
->
-> **Target Users:** Residential Assistants (RAs)  
->
-> **Assumptions:** Users have basic computer literacy and are comfortable with typing commands, navigating lists, and interpreting simple system feedback. They can quickly pick up terminal-style interactions and prefer efficient, keyboard-driven workflows for repetitive tasks.
+![Ui](images/Ui.png)
 
+**RACE (Residential Assistant’s Contact Entries)** is a desktop application for managing resident information, optimized for use via a Command Line Interface (CLI) while still providing the benefits of a Graphical User Interface (GUI). It allows Residential Assistants to quickly store, update, and retrieve resident details in a secure, centralised system, replacing fragmented and inefficient workflows. Fast CLI commands enable efficient data entry and management, especially during high-intensity periods like onboarding.
 
-## Table of Contents
+**Target Users:** Residential Assistants (RAs)  
 
-* Quick start
-* Features
-  * Viewing help : `help`
-  * Adding a resident : `add`
-  * Listing all residents : `list`
-  * Editing a resident : `edit`
-  * Adding a comment : `comment`
-  * Finding a resident : `find`
-  * Deleting a resident : `delete`
-  * Clearing all entries : `clear`
-  * Exiting the program : `exit`
-  * Saving the data
-  * Editing the data file
-  * Archiving data files 
-* FAQ
-* Known issues
-* Command summary
---------------------------------------------------------------------------------------------------------------------
+**Assumptions:** Users have basic computer literacy and are comfortable with typing commands, navigating lists, and interpreting simple system feedback. They can quickly pick up terminal-style interactions and prefer efficient, keyboard-driven workflows for repetitive tasks.
+
+<!-- * Table of Contents -->
+<!-- Will only show when printed or exported as PDF, as sidebar is provided when viewing on the web. -->
+<page-nav-print />
+
+---
 
 ## Quick start
 
@@ -43,7 +30,6 @@ title: User Guide
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -60,11 +46,11 @@ title: User Guide
 
 1. Refer to the [Features](#features) below for details of each command.
 
---------------------------------------------------------------------------------------------------------------------
+---
 
 ## Features
 
-<div markdown="block" class="alert alert-info">
+<box type="info" seamless>
 
 **Notes about the command format:**<br>
 
@@ -87,7 +73,7 @@ title: User Guide
   e.g. `delete  1, 3 ,5 ` is accepted as `delete 1,3,5`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-</div>
+</box>
 
 ### Viewing help : `help`
 
@@ -97,48 +83,26 @@ Format:
 `help`
 
 Expected Output:
-After inputting `help`:
+After inputing `help`:
 
 `Opened help window.`
 
-💡 Note:
+<box type="info" seamless>
+
+**Note:**
 * The help window includes a URL to the online user guide.
 
-Warnings:
-If the help window is already open but minimized, running `help` again will focus it (you may need to restore it manually).
+</box>
 
-Tips:
-Use this command whenever you need a quick reminder of the documentation link.
 
----
+<box type="tip" seamless>
 
-### 🔍 Finding residents by name or room : `find`
+**Tips:**
+* Use this command whenever you need a quick reminder of the documentation link.
 
-Finds residents by name (matches names containing keywords) or by room.
+* If the help window is already open but minimized, running `help` again will focus it (you may need to restore it manually).
 
-Format:
-`find KEYWORD [MORE_KEYWORDS]`
-`find ROOM`
-
-Expected Output:
-`X persons listed!`
-
-💡 Note:
-Name search:
-* Case-insensitive (e.g., `hans` matches `Hans`)
-* Matches full words only (e.g., `Han` does not match `Hans`)
-* Keyword order does not matter (e.g., `find Hans Bo` matches `Bo Hans`)
-* Uses OR logic (matches if any keyword is found)
-
-Room search:
-* Must match exact format `#BLOCK-ROOM-LETTER` (e.g., `#14-203-D`)
-
-Warnings:
-No input provided → `Invalid command format!`
-
-Tips:
-* Use multiple keywords to quickly find groups.
-* After `find`, you can use `edit` or `delete` using the indices shown in the result list.
+</box>
 
 ---
 
@@ -148,9 +112,10 @@ Adds a person to the address book.
 
 Format: `add n/NAME [p/PHONE] [e/EMAIL] r/ROOM [t/TAG]…​`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
-</div>
+<box type="tip" seamless>
+
+**Tip:** A person can have any number of tags (including 0)
+</box>
 
 Examples:
 * `add n/John Doe p/98765432 e/e1234567@u.nus.edu r/#14-203-D`
@@ -173,20 +138,32 @@ When sorting is NOT used:
 When sorting IS used:
 `Listed all residents sorted by FIELD`
 
-💡 Note:
+<box type="info" seamless>
+
+**Note:**
 Supported sort prefixes:
 * `n/` (name)
 * `r/` (room)
 * `p/` (phone)
 * `e/` (email)
 
-Warnings:
+</box>
+
+<box type="warning" seamless>
+
+**Caution:**
 * Invalid command format → `Invalid command format!`
 * Invalid sort prefix (e.g., `list -sort x/`) → `Invalid sort field! Supported field prefixes: n/, r/, p/, e/`
 
-Tips:
+</box>
+
+<box type="tip" seamless>
+
+**Tips:**
 * Use `list -sort PREFIX` to review residents in a predictable order.
 * If you run `find`, the displayed order may reset—run `list -sort ...` again if needed.
+
+</box>
 
 Examples:
 Input → Expected Output
@@ -212,7 +189,7 @@ Examples:
 *  `edit 1 p/91234567 e/e1222222@u.nus.edu` Edits the phone number and email address of the 1st person to be `91234567` and `e1222222@u.nus.edu` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-### 📝 Commenting on a resident: `comment`
+### Commenting on a resident: `comment`
 
 Adds, edits, or deletes a comment for a specific resident.
 
@@ -224,13 +201,16 @@ Expected Output:
 * When deleting (empty comment):  
   `Removed comment from Person: NAME; ...`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Note:**
+<box type="info" seamless>
+
+**Note:**
 * The `INDEX` refers to the unique numbered position shown in the current list (via `list` or `find`). The `INDEX` must be a positive integer (1, 2, 3, …).
 * A new comment will overwrite any existing comment.
 * To delete a comment, use `c/` with no text.
 * Leading and trailing spaces in comments are ignored.
 * If the comment only contains whitespace, it is treated as empty.
-</div>
+
+</box>
 
 Examples:
 **Input → Expected Output**
@@ -241,16 +221,23 @@ Examples:
 * `comment 3 c/`  
   → Deletes the existing comment  
 
-Warnings:
+<box type="warning" seamless>
+
+**Caution:**
 * Invalid index → `The person index provided is invalid.`
 * Missing parameters → `Invalid command format!`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tips:**
+</box>
+
+<box type="tip" seamless>
+
+**Tips:**
 * Use comments to log important interactions (e.g., maintenance issues, noise complaints, welfare check-ins).
 * Use `comment INDEX c/` to quickly clear outdated notes.
-</div>
 
-### 🔍 Finding residents by name or room: `find`
+</box>
+
+### Finding residents by name or room: `find`
 
 Finds residents by name (matches names containing any keyword) or by exact room.
 
@@ -261,7 +248,9 @@ Format:
 Expected Output:
 `X persons listed!`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Note:**
+<box type="info" seamless>
+
+**Note:**
 
 **Name search**
 * Case-insensitive (e.g., `hans` matches `Hans`)
@@ -272,7 +261,8 @@ Expected Output:
 **Room search**
 * Must match exact format `#BLOCK-ROOM-LETTER` (e.g., `#14-203-D`)
 * Matches must be exact (e.g., `#05-203-D` ≠ `#5-203-D`)
-</div>
+
+</box>
 
 Examples:
 **Input → Expected Output**
@@ -283,17 +273,24 @@ Examples:
 * `find #14-203-D`  
   → Shows residents in that room  
 
-Warnings:
+<box type="warning" seamless>
+
+**Caution:**
 * No input provided → `Invalid command format!`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tips:**
+</box>
+
+<box type="tip" seamless>
+
+**Tips:**
 * Use multiple keywords to quickly find groups (e.g., `find Alex Bob David Hannah`).
 * Combine with other commands for efficiency:
   * `find Alex` → `delete 1`
   * `find Alex` → `edit 1 r/#14-205`
-</div>
 
-### 🗑️ Deleting a resident: `delete`
+</box>
+
+### Deleting a resident: `delete`
 
 Deletes a resident from the address book.
 
@@ -302,11 +299,14 @@ Format: `delete INDEX`
 Expected Output:
 `Deleted Person: NAME; Phone: PHONE; Email: EMAIL; ...`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Note:**
+<box type="info" seamless>
+
+**Note:**
 * The `INDEX` refers to the position in the current list (`list` or `find`).
 * The `INDEX` must be a positive integer (1, 2, 3, …).
 * Deletion is permanent and cannot be undone.
-</div>
+
+</box>
 
 Examples:
 **Input → Expected Output**
@@ -317,17 +317,24 @@ Examples:
 * `find Alex` → `delete 1`  
   → Deletes the first matching result  
 
-Warnings:
+<box type="warning" seamless>
+
+**Caution:**
 * Invalid index → `The person index provided is invalid.`
 * Missing index → `Invalid command format!`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tips:**
+</box>
+
+<box type="tip" seamless>
+
+**Tips:**
 * Always confirm the correct index using `list` or `find`.
 * Back up `data/addressbook.json` before bulk deletions.
 * After `find`, indices refer to filtered results (not the full list).
-</div>
 
-### 🧹 Clearing all residents: `clear`
+</box>
+
+### Clearing all residents: `clear`
 
 Clears all residents from the address book.
 
@@ -336,9 +343,12 @@ Format: `clear`
 Expected Output:
 `Address book has been cleared!`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Note:**
+<box type="info" seamless>
+
+**Note:**
 * This action removes all data permanently and cannot be undone.
-</div>
+
+</box>
 
 Examples:
 **Input → Expected Output**
@@ -347,16 +357,23 @@ Examples:
 * `clear abc`  
   → Still removes all residents (extra input ignored)  
 
-Warnings:
+<box type="warning" seamless>
+
+**Caution:**
 * None (unless command is misspelled)
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tips:**
+</box>
+
+<box type="tip" seamless>
+
+**Tips:**
 * Use `clear` at the start of a new semester to reset the system.
 * Back up `data/addressbook.json` before using this command.
 * Avoid accidental execution.
-</div>
 
-### 🚪 Exiting the program: `exit`
+</box>
+
+### Exiting the program: `exit`
 
 Closes the application.
 
@@ -366,9 +383,12 @@ Expected Output:
 `Exiting Address Book as requested ...`  
 (Application window closes)
 
-<div markdown="span" class="alert alert-primary">:bulb: **Note:**
+<box type="info" seamless>
+
+**Note:**
 * All data is automatically saved before exiting.
-</div>
+
+</box>
 
 Examples:
 **Input → Expected Output**
@@ -377,14 +397,21 @@ Examples:
 * `exit 123`  
   → Still exits (extra input ignored)  
 
-Warnings:
+<box type="warning" seamless>
+
+**Caution:**
 * None (unless command is misspelled)
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tips:**
+</box>
+
+<box type="tip" seamless>
+
+**Tips:**
 * Use `exit` for quick keyboard-based closing.
 * You can also close the window manually — data is auto-saved.
 * Ensure all tasks are completed before exiting.
-</div>
+
+</box>
 
 ### Saving the data
 
@@ -394,16 +421,18 @@ AddressBook data are saved in the hard disk automatically after any command that
 
 AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</div>
+<box type="warning" seamless>
+
+**Caution:**
+If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+</box>
 
 ### Archiving data files `[coming in v2.0]`
 
 _Details coming soon ..._
 
---------------------------------------------------------------------------------------------------------------------
+---
 
 ## FAQ
 
@@ -444,7 +473,7 @@ _Details coming soon ..._
 **Q**: How do I get help?<br>
 **A**: Use the `help` command or press `F1` to open the help window.
 
---------------------------------------------------------------------------------------------------------------------
+---
 
 ## Known issues
 
@@ -454,17 +483,17 @@ _Details coming soon ..._
 4. **Sample data on first launch is not written to disk immediately.** If no data file exists yet, the app starts with sample residents in memory. If you close the app immediately without running a successful command, `data/addressbook.json` may not be created yet.
 5. **Unsupported prefixes may sometimes lead to misleading error messages.** For example, using `c/` inside `add` is not supported, but the app may treat it as part of the previous field and report a room or tag format error instead of a clearer usage error.
 
---------------------------------------------------------------------------------------------------------------------
+---
 
 ## Command summary
 
-Action | Format, Examples
---------|------------------
-**Add** | `add n/NAME [p/PHONE] [e/EMAIL] [r/ROOM [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/e1234567@u.nus.edu r/#14-203-D t/friend t/colleague`
-**Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROOM] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/e1234567@u.nus.edu`
-**Find** | `find KEYWORD [MORE_KEYWORDS]` or `find ROOM`<br> e.g., `find James Jake`, `find #14-203-D`
-**List** | `list [-sort PREFIX]` <br> e.g., `list -sort r/`
-**Help** | `help`
-**Comment** | `comment INDEX c/[COMMENT]`<br> e.g., `comment 1 c/Prefers WhatsApp messages before visits`, `comment 3 c/`
+ Action      | Format, Examples                                                                                                                                     
+-------------|------------------------------------------------------------------------------------------------------------------------------------------------------
+ **Add**     | `add n/NAME [p/PHONE] [e/EMAIL] [r/ROOM [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/e1234567@u.nus.edu r/#14-203-D t/friend t/colleague` 
+ **Clear**   | `clear`                                                                                                                                              
+ **Delete**  | `delete INDEX`<br> e.g., `delete 3`                                                                                                                  
+ **Edit**    | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROOM] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/e1234567@u.nus.edu`                            
+ **Find**    | `find KEYWORD [MORE_KEYWORDS]` or `find ROOM`<br> e.g., `find James Jake`, `find #14-203-D`                                                          
+ **List**    | `list [-sort PREFIX]` <br> e.g., `list -sort r/`                                                                                                            
+ **Help**    | `help`                                                                                                                                               
+ **Comment** | `comment INDEX c/[COMMENT]`<br> e.g., `comment 1 c/Prefers WhatsApp messages before visits`, `comment 3 c/`                                            
