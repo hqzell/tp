@@ -12,6 +12,7 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
 
     public PersonContainsKeywordsPredicate(List<String> keywords) {
+        Objects.requireNonNull(keywords, "Keywords cannot be null");
         this.keywords = keywords;
     }
 
