@@ -229,9 +229,14 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + ROOM_DESC_BOB + NEWTAG_FLAG + " unexpected",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
-        // duplicate newtag flag, valid and should be treated as a single flag
+        // duplicate newtag flag - valid and should be treated as a single flag
         assertParseSuccess(parser, NAME_DESC_BOB + ROOM_DESC_BOB + TAG_DESC_STUDY_GROUP + NEWTAG_FLAG + NEWTAG_FLAG,
                 new AddCommand(new PersonBuilder().withName(VALID_NAME_BOB).withRoom(VALID_ROOM_BOB)
                         .withTags(VALID_TAG_STUDY_GROUP).withPhone("").withEmail("").build(), true));
+
+        // multiple duplicate newtag flags followed by text - invalid
+        assertParseFailure(parser,
+                NAME_DESC_BOB + ROOM_DESC_BOB + NEWTAG_FLAG + NEWTAG_FLAG + NEWTAG_FLAG + " randomtext",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }
