@@ -140,7 +140,7 @@ Format: `add n/NAME [p/PHONE] [e/EMAIL] r/ROOM [t/TAG]…​ [-newtag]`
 Examples:
 * `add n/John Doe p/98765432 e/e1234567@u.nus.edu r/#14-203-D`
 * `add n/Betsy Crowe t/vegetarian e/e4567890@u.nus.edu r/#10-10 p/1234567 t/allergies`
-* `add n/Alex Tan r/#12-101 p/91234567 t/study-group -newtag`
+* `add n/Alex Tan Jia-en r/#12-101 p/91234567 t/study-group -newtag`
 
 ---
 
