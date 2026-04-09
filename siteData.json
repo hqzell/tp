@@ -40,7 +40,7 @@
       "src": "DeveloperGuide.md",
       "title": "Developer Guide",
       "headings": {
-        "ab-3-developer-guide": "AB-3 Developer Guide",
+        "race-developer-guide": "RACE Developer Guide",
         "acknowledgements": "Acknowledgements",
         "setting-up-getting-started": "Setting up, getting started",
         "design": "Design",
@@ -114,12 +114,12 @@
         "quick-start": "Quick start",
         "features": "Features",
         "viewing-help-help": "Viewing help : help",
-        "adding-a-person-add": "Adding a person: add",
+        "adding-a-resident-add": "Adding a resident: add",
         "working-with-tags": "Working with tags",
-        "listing-all-persons-list": "Listing all persons : list",
-        "editing-a-person-edit": "Editing a person : edit",
+        "listing-all-residents-list": "Listing all residents : list",
+        "editing-a-resident-edit": "Editing a resident : edit",
         "commenting-on-a-resident-comment": "Commenting on a resident: comment",
-        "finding-residents-by-name-or-room-find": "Finding residents by name or room: find",
+        "finding-residents-by-keyword-name-room-or-tag-find": "Finding residents by keyword (name, room, or tag): find",
         "deleting-a-resident-delete": "Deleting a resident: delete",
         "clearing-all-residents-clear": "Clearing all residents: clear",
         "exiting-the-program-exit": "Exiting the program: exit",
@@ -140,7 +140,7 @@
       "src": "index.md",
       "title": "",
       "headings": {
-        "addressbook-level-3": "AddressBook Level-3"
+        "race-residential-assistant-s-contact-entries": "RACE (Residential Assistant's Contact Entries)"
       },
       "headingKeywords": {}
     },
@@ -172,7 +172,10 @@
     },
     {
       "src": "team/sayyidmehdi.md",
-      "headings": {},
+      "title": "Sayyid Mehdi's Project Portfolio Page",
+      "headings": {
+        "project-race-residential-assistant-s-contact-entries": "Project: RACE (Residential Assistant's Contact Entries)"
+      },
       "headingKeywords": {}
     }
   ]
