@@ -309,13 +309,12 @@ Examples:
 
 </box>
 
-### Finding residents by name, room, or tags: `find`
+### Finding residents by keyword (name, room, or tag): find
 
-Finds residents by **keywords** using substring matching across **name**, **room**, and **tags**.
+Finds residents whose **name**, **room**, or **tags** contain any of the given keywords.
 
 Format:
-* `find KEYWORD [MORE_KEYWORDS]`
-* `find ROOM`
+* `find KEYWORD [MORE_KEYWORDS]...`
 
 Expected Output:
 `X persons listed!`
@@ -323,26 +322,26 @@ Expected Output:
 <box type="info" seamless>
 
 **Note:**
-
-**Matching behavior**
-* Case-insensitive (e.g., `hans` matches `Hans Bo`)
-* Each keyword is matched as a **substring** in name, room, and tags
-  (e.g., `Ali` can match `Alice`, `#14-2` can match `#14-203-D`, and `study` can match tag `study-group`)
-* Keyword order does not matter (e.g., `find Hans Bo` matches a resident named `Bo Hans`)
-* Multiple keywords use **OR** logic: a resident is listed if **any** keyword matches
+* Search is case-insensitive.
+* Partial matching is supported.
+  * e.g., `Han` matches `Hans`
+  * e.g., `#14-2` matches `#14-203-D`
+  * e.g., `allerg` matches tag `allergies`
+* `find` checks resident **name**, **room**, and **tags**.
+* If multiple keywords are provided, OR logic is used (a resident is returned if any keyword matches).
 
 </box>
 
 Examples:
 **Input → Expected Output**
-* `find John`  
-  → Shows residents named `john`, `John Doe`
-* `find alex david`  
-  → Shows residents `Alex Yeoh`, `David Li`
-* `find #14-203-D`  
-  → Shows residents in that room  
-* `find study`  
-  → Shows residents with matching tags (e.g., `study-group`)
+* `find alex`  
+  → Shows residents whose names contain `alex`
+* `find #14-2`  
+  → Shows residents in rooms containing `#14-2`
+* `find allerg`  
+  → Shows residents with tags containing `allerg` (e.g., `allergies`)
+* `find alex #14-2 halal`  
+  → Shows residents matching any of these keywords in name, room, or tags  
 
 <box type="warning" seamless>
 
