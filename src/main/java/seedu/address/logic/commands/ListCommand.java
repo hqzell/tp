@@ -16,7 +16,8 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all residents in the address book.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Lists all residents in the address book. Optionally, provide a field to sort results by.\n"
             + "Parameters: [-sort FIELD_PREFIX]\n"
             + "Supported field prefixes: n/, r/\n"
             + "Example: " + COMMAND_WORD + " -sort r/";
