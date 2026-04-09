@@ -106,7 +106,7 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_NAME);
     }
 
     @Test
@@ -118,7 +118,55 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(personInList).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_NAME);
+    }
+
+    @Test
+    public void execute_duplicatePhoneUnfilteredList_failure() {
+        Model customModel = new ModelManager(new AddressBook(), new UserPrefs());
+        Person firstPerson = new PersonBuilder().withName("Alpha").withPhone("90000011")
+                .withEmail("alpha@example.com").withRoom("#1-111-A").build();
+        Person secondPerson = new PersonBuilder().withName("Bravo").withPhone("90000022")
+                .withEmail("bravo@example.com").withRoom("#2-222-B").build();
+        customModel.addPerson(firstPerson);
+        customModel.addPerson(secondPerson);
+
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+                new EditPersonDescriptorBuilder().withPhone("90000022").build());
+
+        assertCommandFailure(editCommand, customModel, EditCommand.MESSAGE_DUPLICATE_PHONE);
+    }
+
+    @Test
+    public void execute_duplicateEmailUnfilteredList_failure() {
+        Model customModel = new ModelManager(new AddressBook(), new UserPrefs());
+        Person firstPerson = new PersonBuilder().withName("Charlie").withPhone("90000033")
+                .withEmail("charlie@example.com").withRoom("#3-333-C").build();
+        Person secondPerson = new PersonBuilder().withName("Delta").withPhone("90000044")
+                .withEmail("delta@example.com").withRoom("#4-444-D").build();
+        customModel.addPerson(firstPerson);
+        customModel.addPerson(secondPerson);
+
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+                new EditPersonDescriptorBuilder().withEmail("delta@example.com").build());
+
+        assertCommandFailure(editCommand, customModel, EditCommand.MESSAGE_DUPLICATE_EMAIL);
+    }
+
+    @Test
+    public void execute_duplicateRoomUnfilteredList_failure() {
+        Model customModel = new ModelManager(new AddressBook(), new UserPrefs());
+        Person firstPerson = new PersonBuilder().withName("Echo").withPhone("90000055")
+                .withEmail("echo@example.com").withRoom("#5-555-E").build();
+        Person secondPerson = new PersonBuilder().withName("Foxtrot").withPhone("90000066")
+                .withEmail("foxtrot@example.com").withRoom("#6-666-F").build();
+        customModel.addPerson(firstPerson);
+        customModel.addPerson(secondPerson);
+
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+                new EditPersonDescriptorBuilder().withRoom("#6-666-F").build());
+
+        assertCommandFailure(editCommand, customModel, EditCommand.MESSAGE_DUPLICATE_ROOM);
     }
 
     @Test

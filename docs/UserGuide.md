@@ -5,8 +5,6 @@
 ---
 # User Guide
 
-![Ui](images/Ui.png)
-
 **RACE (Residential Assistant’s Contact Entries)** is a desktop application for managing resident information, optimized for use via a Command Line Interface (CLI) while still providing the benefits of a Graphical User Interface (GUI). It allows Residential Assistants to quickly store, update, and retrieve resident details in a secure, centralised system, replacing fragmented and inefficient workflows. Fast CLI commands enable efficient data entry and management, especially during high-intensity periods like onboarding.
 
 **Target Users:** Residential Assistants (RAs)  
@@ -30,17 +28,18 @@
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+   ![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+   * `list` : Lists all residents.
 
-   * `add n/John Doe p/98765432 e/e1234567@u.nus.edu r/#01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/e1234567@u.nus.edu r/#01-01` : Adds a resident named `John Doe` to the address book.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * `delete 3` : Deletes the 3rd resident shown in the current list.
 
-   * `clear` : Deletes all contacts.
+   * `clear` : Deletes all residents.
 
    * `exit` : Exits the app.
 
@@ -85,6 +84,8 @@
   e.g. `delete  1, 3 ,5 ` is accepted as `delete 1,3,5`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
+* When the app reports **`Invalid command format!`**, the message often includes a **second line** showing the correct usage for that command — read both lines together.
 </box>
 
 ### Viewing help : `help`
@@ -95,7 +96,7 @@ Format:
 `help`
 
 Expected Output:
-After inputing `help`:
+After inputting `help`:
 
 `Opened help window.`
 
@@ -103,6 +104,7 @@ After inputing `help`:
 
 **Note:**
 * The help window includes a URL to the online user guide.
+* You can also open help from the **Help** menu or press **`F1`**.
 
 </box>
 
@@ -112,21 +114,21 @@ After inputing `help`:
 **Tips:**
 * Use this command whenever you need a quick reminder of the documentation link.
 
-* If the help window is already open but minimized, running `help` again will focus it (you may need to restore it manually).
+* If the help window is **minimised**, it may stay hidden when you run `help` again — see [Known issues](#known-issues).
 
 </box>
 
 ---
 
-### Adding a person: `add`
+### Adding a resident: `add`
 
-Adds a person to the address book.
+Adds a resident to the address book.
 
 Format: `add n/NAME [p/PHONE] [e/EMAIL] r/ROOM [t/TAG]…​ [-newtag]`
 
 <box type="tip" seamless>
 
-**Tip:** A person can have any number of tags (including 0)
+**Tip:** A resident can have any number of tags (including 0)
 </box>
 
 <box type="info" seamless>
@@ -135,6 +137,7 @@ Format: `add n/NAME [p/PHONE] [e/EMAIL] r/ROOM [t/TAG]…​ [-newtag]`
 * Built-in tags are `vegetarian`, `vegan`, `halal`, and `allergies`.
 * All tags are case-sensitive. For example, `study-group` and `Study-Group` are treated as different tags.
 * Kebab-case is recommended for consistency, e.g. `study-group`.
+* **Spaces are not allowed in tags.** Use hyphens to separate words instead (e.g., `study-group` not `study group`).
 * To create a new custom tag while adding a resident, include `-newtag` in the same command.
 * If you include `-newtag` for a tag that already exists, RACE will still accept the command. No duplicate tag is created.
 
@@ -157,6 +160,7 @@ Tags help you label residents with quick categories or notes.
 * The four built-in tags are always available: `vegetarian`, `vegan`, `halal`, `allergies`.
 * Any other tag is treated as a custom tag.
 * Custom tags must already exist before you can reuse them.
+* **Spaces are not allowed in tags.** Use hyphens to separate words (e.g., `project-team` not `project team`).
 * If you want to introduce a brand-new custom tag, use `-newtag` together with `add` or `edit`.
 * If you use `-newtag` for an already existing tag, the command still succeeds normally.
 
@@ -170,9 +174,9 @@ Examples:
 
 ---
 
-### Listing all persons : `list`
+### Listing all residents : `list`
 
-Shows a list of all persons in the address book. Optionally sorts the list.
+Shows all residents in the address book. You can optionally sort the displayed list by name, room, phone, or email.
 
 Format:
 `list`
@@ -183,14 +187,17 @@ When sorting is NOT used:
 `Listed all residents`
 
 When sorting IS used:
-`Listed all residents sorted by FIELD`
+`Listed all residents sorted by FIELD` (where `FIELD` is `name`, `room`, `phone`, or `email`, depending on the prefix you used)
 
 <box type="info" seamless>
 
 **Note:**
-Supported sort prefixes:
-* `n/` (name)
-* `r/` (room)
+* Supported sort prefixes:
+  * `n/` (name)
+  * `r/` (room)
+  * `p/` (phone)
+  * `e/` (email)
+* If you omit `-sort`, residents are shown in the order stored in the app (typically the order they were added).
 
 </box>
 
@@ -206,7 +213,7 @@ Supported sort prefixes:
 
 **Tips:**
 * Use `list -sort PREFIX` to review residents in a predictable order.
-* If you run `find`, the displayed order may reset—run `list -sort ...` again if needed.
+* After [`find`](#finding-residents-by-name-or-room-find), any active **sort order is cleared** until you run `list -sort ...` again.
 
 </box>
 
@@ -217,24 +224,24 @@ Input → Expected Output
 * `list -sort n/` → `Listed all residents sorted by name`
 
 
-### Editing a person : `edit`
+### Editing a resident : `edit`
 
-Edits an existing person in the address book.
+Edits an existing resident in the address book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROOM] [t/TAG]…​ [-newtag]`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the resident at the specified `INDEX`. The index refers to the index number shown in the displayed list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
+* When editing tags, the existing tags of the resident will be removed i.e. adding of tags is not cumulative.
+* You can remove all of the resident’s tags by typing `t/` without
     specifying any tags after it.
 * If the edited tags include a brand-new custom tag, include `-newtag` in the same command.
 
 Examples:
-*  `edit 1 p/91234567 e/e1222222@u.nus.edu` Edits the phone number and email address of the 1st person to be `91234567` and `e1222222@u.nus.edu` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-*  `edit 3 t/project-team -newtag` Replaces the 3rd person's tags with `project-team` and creates that custom tag if needed.
+*  `edit 1 p/91234567 e/e1222222@u.nus.edu` Edits the phone number and email address of the 1st resident to be `91234567` and `e1222222@u.nus.edu` respectively.
+*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd resident to be `Betsy Crower` and clears all existing tags.
+*  `edit 3 t/project-team -newtag` Replaces the 3rd resident's tags with `project-team` and creates that custom tag if needed.
 
 ### Commenting on a resident: `comment`
 
@@ -242,11 +249,10 @@ Adds, edits, or deletes a comment for a specific resident.
 
 Format: `comment INDEX c/[COMMENT]`
 
-Expected Output:
-* When adding/updating:  
-  `Added comment to Person: NAME; ...`
-* When deleting (empty comment):  
-  `Removed comment from Person: NAME; ...`
+Expected output (the full line includes the resident’s details after the name):
+* New comment (resident had no comment before): `Added comment to Person: NAME; ...`
+* Replacing an existing comment: `Updated comment for Person: NAME; ...`
+* Deleting a comment (`c/` with no text): `Removed comment from Person: NAME; ...`
 
 <box type="info" seamless>
 
@@ -271,7 +277,7 @@ Examples:
 <box type="warning" seamless>
 
 **Caution:**
-* Invalid index → `The person index provided is invalid.`
+* Invalid index → `The person index provided is invalid`
 * Missing parameters → `Invalid command format!`
 
 </box>
@@ -286,7 +292,7 @@ Examples:
 
 ### Finding residents by name or room: `find`
 
-Finds residents by name (matches names containing any keyword) or by exact room.
+Finds residents by **keywords in the full name** (substring match), or by **exact room string**.
 
 Format:
 * `find KEYWORD [MORE_KEYWORDS]`
@@ -300,14 +306,14 @@ Expected Output:
 **Note:**
 
 **Name search**
-* Case-insensitive (e.g., `hans` matches `Hans`)
-* Matches full words only (e.g., `Han` does not match `Hans`)
-* Keyword order does not matter (e.g., `find Hans Bo` matches `Bo Hans`)
-* Uses OR logic (e.g., `find Hans Bo` returns `Hans Bo`, `Bo Tan`)
+* Case-insensitive (e.g., `hans` matches `Hans Bo`)
+* Each keyword is matched as a **substring** anywhere in the full name (e.g., `Ali` can match `Alice`, and `Han` can match `Hans`)
+* Keyword order does not matter (e.g., `find Hans Bo` matches a resident named `Bo Hans`)
+* Multiple keywords use **OR** logic: a resident is listed if **any** keyword matches
 
 **Room search**
-* Must match exact format `#BLOCK-ROOM-LETTER` (e.g., `#14-203-D`)
-* Matches must be exact (e.g., `#05-203-D` ≠ `#5-203-D`)
+* Room must follow `#FLOOR-UNIT[-LETTER]` (floor and unit are numeric; the letter suffix is optional), e.g. `#14-203-D`, `#10-101`
+* The room string must match **exactly** as stored (e.g., `#05-203-D` and `#5-203-D` are different strings)
 
 </box>
 
@@ -334,17 +340,19 @@ Examples:
 * Combine with other commands for efficiency:
   * `find Alex` → `delete 1`
   * `find Alex` → `edit 1 r/#14-205`
+* To sort the list again after filtering, run [`list -sort ...`](#listing-all-residents--list).
 
 </box>
 
 ### Deleting a resident: `delete`
 
-Deletes a resident from the address book.
+Deletes one or more residents from the address book.
 
-Format: `delete INDEX`
+Format: `delete INDEX[,INDEX]...`
 
 Expected Output:
-`Deleted Person: NAME; Phone: PHONE; Email: EMAIL; ...`
+* One index: `Deleted Person: NAME; Phone: PHONE; Email: EMAIL; ...`
+* Several indices: `Deleted Persons:` followed by one block per deleted resident (same detail format as above)
 
 <box type="info" seamless>
 
@@ -363,11 +371,13 @@ Examples:
   → Deletes the 3rd resident in the list  
 * `find Alex` → `delete 1`  
   → Deletes the first matching result  
+* `delete 1,3`  
+  → Deletes the 1st and 3rd residents in the **current** list (see [command format notes](#features))
 
 <box type="warning" seamless>
 
 **Caution:**
-* Invalid index → `The person index provided is invalid.`
+* Invalid index → `The person index provided is invalid`
 * Missing index → `Invalid command format!`
 
 </box>
@@ -500,13 +510,16 @@ _Details coming soon ..._
 **Q**: Can I add two residents with the same name?<br>
 **A**: No. The app treats residents with the same name as duplicates, even if their other details are different. Try adding unique qualifiers to the name, e.g., `Alex Tan (Block 14)` and `Alex Tan (Block 9)`.
 **Q**: Can I delete more than one resident at once?<br>
-**A**: Yes. You can delete multiple residents in one command by providing multiple indices.
+**A**: Yes. Use comma-separated indices, e.g. `delete 1,3,5` (see the [delete](#deleting-a-resident-delete) section).
 
 **Q**: How do I create a new custom tag?<br>
 **A**: Use `-newtag` together with `add` or `edit`. For example, `add n/Sam Lee r/#08-110 t/study-group -newtag` creates `study-group` if it does not already exist.
 
 **Q**: Are tags case-sensitive?<br>
 **A**: Yes. `study-group` and `Study-Group` are treated as different tags. For consistency, we recommend entering tags in kebab-case.
+
+**Q**: Can tags contain spaces?<br>
+**A**: No. Tags cannot contain spaces. Use hyphens to separate words instead (e.g., `study-group` instead of `study group`).
 
 **Q**: What happens if I use `-newtag` for a tag that already exists?<br>
 **A**: Nothing extra happens. The command still works normally, and RACE simply reuses the existing tag.
@@ -548,8 +561,8 @@ _Details coming soon ..._
 -------------|------------------------------------------------------------------------------------------------------------------------------------------------------
  **Add**     | `add n/NAME [p/PHONE] [e/EMAIL] r/ROOM [t/TAG]…​ [-newtag]` <br> e.g., `add n/James Ho p/22224444 e/e1234567@u.nus.edu r/#14-203-D t/study-group -newtag` 
  **Clear**   | `clear`                                                                                                                                              
- **Delete**  | `delete INDEX`<br> e.g., `delete 3`                                                                                                                  
- **Edit**    | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROOM] [t/TAG]…​ [-newtag]`<br> e.g.,`edit 2 n/James Lee t/project-team -newtag`                            
+ **Delete**  | `delete INDEX[,INDEX]...`<br> e.g., `delete 3`, `delete 1,3,5`                                                                                                                  
+ **Edit**    | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROOM] [t/TAG]…​ [-newtag]`<br> e.g., `edit 2 n/James Lee t/project-team -newtag`                            
  **Find**    | `find KEYWORD [MORE_KEYWORDS]` or `find ROOM`<br> e.g., `find James Jake`, `find #14-203-D`                                                          
  **List**    | `list [-sort PREFIX]` <br> e.g., `list -sort r/`                                                                                                            
  **Help**    | `help`                                                                                                                                               

@@ -16,6 +16,10 @@ public class TagTest {
     public void constructor_invalidTagName_throwsIllegalArgumentException() {
         String invalidTagName = "";
         assertThrows(IllegalArgumentException.class, () -> new Tag(invalidTagName));
+
+        // spaces not allowed
+        assertThrows(IllegalArgumentException.class, () -> new Tag("study group"));
+        assertThrows(IllegalArgumentException.class, () -> new Tag("halal food"));
     }
 
     @Test

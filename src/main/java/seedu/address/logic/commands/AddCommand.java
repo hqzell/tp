@@ -8,6 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Optional;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -53,7 +55,17 @@ public class AddCommand extends Command {
             + PREFIX_NEWTAG;
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
+    public static final String MESSAGE_MISSING_NAME =
+            "Missing required parameter: " + PREFIX_NAME + "NAME";
+    public static final String MESSAGE_MISSING_ROOM =
+            "Missing required parameter: " + PREFIX_ROOM + "ROOM";
+    public static final String MESSAGE_NEWTAG_FLAG_TAKES_NO_VALUE =
+            "The " + PREFIX_NEWTAG + " flag must not be followed by a value.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_NAME = "Name already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PHONE = "Phone number already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_EMAIL = "Email already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_ROOM = "Room number already exists in the address book.";
     public static final String MESSAGE_UNKNOWN_TAGS = TagCommandUtil.MESSAGE_UNKNOWN_TAGS;
 
     private final Person toAdd;
@@ -81,7 +93,7 @@ public class AddCommand extends Command {
         TagCommandUtil.validateKnownTags(model, toAdd.getTags(), shouldCreateNewTags, MESSAGE_USAGE_WITH_NEWTAG);
 
         if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(getDuplicateMessage(model, toAdd));
         }
 
         if (shouldCreateNewTags) {
@@ -90,6 +102,33 @@ public class AddCommand extends Command {
         }
         model.addPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+    }
+
+    private static String getDuplicateMessage(Model model, Person candidate) {
+        Optional<Person> conflictingPerson = model.getAddressBook().getPersonList().stream()
+                .filter(candidate::isSamePerson)
+                .findFirst();
+
+        if (conflictingPerson.isEmpty()) {
+            return MESSAGE_DUPLICATE_PERSON;
+        }
+
+        Person existingPerson = conflictingPerson.get();
+        if (existingPerson.getName().equals(candidate.getName())) {
+            return MESSAGE_DUPLICATE_NAME;
+        }
+        if (!existingPerson.getPhone().value.isEmpty() && !candidate.getPhone().value.isEmpty()
+                && existingPerson.getPhone().equals(candidate.getPhone())) {
+            return MESSAGE_DUPLICATE_PHONE;
+        }
+        if (!existingPerson.getEmail().value.isEmpty() && !candidate.getEmail().value.isEmpty()
+                && existingPerson.getEmail().equals(candidate.getEmail())) {
+            return MESSAGE_DUPLICATE_EMAIL;
+        }
+        if (existingPerson.getRoom().equals(candidate.getRoom())) {
+            return MESSAGE_DUPLICATE_ROOM;
+        }
+        return MESSAGE_DUPLICATE_PERSON;
     }
 
     @Override

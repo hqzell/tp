@@ -4,8 +4,10 @@
   pageNav: 3
 ---
 
-# AB-3 Developer Guide
-
+# RACE Developer Guide
+This guide documents **RACE** (Resident Administration & Contact Explorer). This repository extends the AB3 architecture with additional domain concepts such as room-based resident records, tag registries, comments, and list sorting behaviours that are not present in stock AB3.
+When reading older AB3-oriented diagrams or descriptions, interpret them as the high-level structure of the app; refer to the current `Model`, `Storage`, and `Logic` sections for RACE-specific details.
+Contributors should prefer updating diagrams and explanations alongside feature changes to avoid documentation drift.
 <!-- * Table of Contents -->
 <page-nav-print />
 

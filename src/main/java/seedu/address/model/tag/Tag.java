@@ -10,9 +10,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Tag {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Tags should only contain letters, numbers, spaces, and hyphens, and it should not be blank. "
-                    + "Kebab-case is recommended for consistency.";
-    private static final String VALIDATION_REGEX = "[A-Za-z0-9][A-Za-z0-9 -]*";
+            "Tags should only contain letters, numbers, and hyphens, and it should not be blank. "
+                    + "Hyphens may be used to separate words (e.g., study-group). Spaces are not allowed.";
+    private static final String VALIDATION_REGEX = "[A-Za-z0-9][A-Za-z0-9-]*";
 
     private final String tagName;
 

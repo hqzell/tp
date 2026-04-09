@@ -70,16 +70,39 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same name.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both persons cannot coexist in the address book because they share the same name,
+     * room number, or (when both are non-empty) the same phone number or email.
      */
     public boolean isSamePerson(Person otherPerson) {
         if (otherPerson == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName());
+        if (otherPerson == null) {
+            return false;
+        }
+
+        if (otherPerson.getName().equals(getName())) {
+            return true;
+        }
+        if (otherPerson.getRoom().equals(getRoom())) {
+            return true;
+        }
+        if (phonesConflict(otherPerson)) {
+            return true;
+        }
+        if (emailsConflict(otherPerson)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean phonesConflict(Person other) {
+        return !getPhone().value.isEmpty() && !other.getPhone().value.isEmpty() && getPhone().equals(other.getPhone());
+    }
+
+    private boolean emailsConflict(Person other) {
+        return !getEmail().value.isEmpty() && !other.getEmail().value.isEmpty() && getEmail().equals(other.getEmail());
     }
 
     /**

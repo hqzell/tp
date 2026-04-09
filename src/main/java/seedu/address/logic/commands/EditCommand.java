@@ -67,6 +67,10 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_NAME = AddCommand.MESSAGE_DUPLICATE_NAME;
+    public static final String MESSAGE_DUPLICATE_PHONE = AddCommand.MESSAGE_DUPLICATE_PHONE;
+    public static final String MESSAGE_DUPLICATE_EMAIL = AddCommand.MESSAGE_DUPLICATE_EMAIL;
+    public static final String MESSAGE_DUPLICATE_ROOM = AddCommand.MESSAGE_DUPLICATE_ROOM;
     public static final String MESSAGE_UNKNOWN_TAGS = TagCommandUtil.MESSAGE_UNKNOWN_TAGS;
 
     private final Index index;
@@ -132,8 +136,8 @@ public class EditCommand extends Command {
                     shouldCreateNewTags, MESSAGE_USAGE_WITH_NEWTAG);
         }
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (model.hasPersonExcept(editedPerson, personToEdit)) {
+            throw new CommandException(getDuplicateMessage(model, personToEdit, editedPerson));
         }
 
         if (shouldCreateNewTags && editPersonDescriptor.getTags().isPresent()) {
@@ -144,6 +148,33 @@ public class EditCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
+    }
+
+    private static String getDuplicateMessage(Model model, Person personToEdit, Person candidate) {
+        Optional<Person> conflictingPerson = model.getAddressBook().getPersonList().stream()
+                .filter(person -> person != personToEdit && candidate.isSamePerson(person))
+                .findFirst();
+
+        if (conflictingPerson.isEmpty()) {
+            return MESSAGE_DUPLICATE_PERSON;
+        }
+
+        Person existingPerson = conflictingPerson.get();
+        if (existingPerson.getName().equals(candidate.getName())) {
+            return MESSAGE_DUPLICATE_NAME;
+        }
+        if (!existingPerson.getPhone().value.isEmpty() && !candidate.getPhone().value.isEmpty()
+                && existingPerson.getPhone().equals(candidate.getPhone())) {
+            return MESSAGE_DUPLICATE_PHONE;
+        }
+        if (!existingPerson.getEmail().value.isEmpty() && !candidate.getEmail().value.isEmpty()
+                && existingPerson.getEmail().equals(candidate.getEmail())) {
+            return MESSAGE_DUPLICATE_EMAIL;
+        }
+        if (existingPerson.getRoom().equals(candidate.getRoom())) {
+            return MESSAGE_DUPLICATE_ROOM;
+        }
+        return MESSAGE_DUPLICATE_PERSON;
     }
 
     @Override

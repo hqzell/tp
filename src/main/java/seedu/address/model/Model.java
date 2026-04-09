@@ -64,6 +64,12 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if {@code candidate} conflicts with some person in the address book,
+     * excluding {@code exclude}.
+     */
+    boolean hasPersonExcept(Person candidate, Person exclude);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */

@@ -99,6 +99,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasPersonExcept(Person candidate, Person exclude) {
+        requireNonNull(candidate);
+        requireNonNull(exclude);
+        return addressBook.hasPersonExcept(candidate, exclude);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
         assert !addressBook.hasPerson(target) : "Person should not exist after deletePerson";

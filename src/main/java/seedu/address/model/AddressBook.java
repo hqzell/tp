@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed ({@link Person#isSamePerson(Person)})
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
@@ -84,6 +84,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return persons.contains(person);
+    }
+
+    /**
+     * Returns true if {@code candidate} conflicts with some person in the address book,
+     * excluding {@code exclude} (e.g. the person being edited).
+     */
+    public boolean hasPersonExcept(Person candidate, Person exclude) {
+        requireNonNull(candidate);
+        requireNonNull(exclude);
+        return getPersonList().stream().anyMatch(p -> p != exclude && candidate.isSamePerson(p));
     }
 
     /**

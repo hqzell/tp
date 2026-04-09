@@ -13,10 +13,10 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * A person is considered unique by comparing using {@code Person#isSamePerson(Person)} (same name, room, or
+ * non-empty phone/email). Adding uses that check; {@link #setPerson(Person, Person)} skips the person being replaced
+ * when checking conflicts. Removal uses {@code Person#equals(Object)} so the person with exactly the same fields is
+ * removed.
  * <p>
  * Supports a minimal set of list operations.
  *
@@ -62,7 +62,7 @@ public class UniquePersonList implements Iterable<Person> {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSamePerson(editedPerson) && contains(editedPerson)) {
+        if (internalList.stream().anyMatch(p -> !p.equals(target) && editedPerson.isSamePerson(p))) {
             throw new DuplicatePersonException();
         }
 
