@@ -13,6 +13,7 @@ Class ModelManager
 Class UserPrefs
 
 Class UniquePersonList
+Class CustomTagRegistry
 Class Person
 Class Room
 Class Comment
@@ -20,6 +21,8 @@ Class Email
 Class Name
 Class Phone
 Class Tag
+Class "FilteredList<Person>" as FilteredList
+Class "SortedList<Person>" as SortedList
 
 Class I #FFFFFF
 }
@@ -37,6 +40,7 @@ ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePersonList
+AddressBook *--> "1" CustomTagRegistry
 UniquePersonList --> "~* all" Person
 Person *--> Name
 Person *--> Phone
@@ -52,5 +56,8 @@ Name -[hidden]right-> Phone
 Phone -[hidden]right-> Room
 Room -[hidden]right-> Email
 
-ModelManager --> "~* filtered" Person
+ModelManager *--> "1" FilteredList
+ModelManager *--> "1" SortedList
+SortedList --> FilteredList
+SortedList --> "~* shown" Person
 @enduml
