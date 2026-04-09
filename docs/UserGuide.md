@@ -215,8 +215,6 @@ When sorting IS used:
 * Supported sort prefixes:
   * `n/` (name)
   * `r/` (room)
-  * `p/` (phone)
-  * `e/` (email)
 * If you omit `-sort`, residents are shown in the order stored in the app (typically the order they were added).
 
 </box>
@@ -233,7 +231,7 @@ When sorting IS used:
 
 **Tips:**
 * Use `list -sort PREFIX` to review residents in a predictable order.
-* After [`find`](#finding-residents-by-name-or-room-find), any active **sort order is cleared** until you run `list -sort ...` again.
+* After [`find`](#finding-residents-by-keyword-name-room-or-tag-find), any active **sort order is cleared** until you run `list -sort ...` again.
 
 </box>
 
@@ -546,7 +544,7 @@ _Details coming soon ..._
 ### Saving and data
 
 **Q**: Does the app save automatically?<br>
-**A**: Yes. Successful changes are saved automatically.
+**A**: Yes. Data is saved automatically after every successful command.
 
 **Q**: Where is my data stored?<br>
 **A**: Your data is stored in `data/addressbook.json`, in the same folder as the `.jar` file you use to open the app.
