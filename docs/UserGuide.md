@@ -157,6 +157,9 @@ Examples:
 * `add n/Betsy Crowe t/vegetarian e/e4567890@u.nus.edu r/#10-10 p/1234567 t/allergies`
 * `add n/Alex Tan Jia-en r/#12-101 p/91234567 t/study-group -newtag`
 
+![Add command success](images/ug-add-success.png)
+*`add n/Alex Tan Jia-en r/#12-101 p/91234567 t/study-group -newtag` shows a successful add and the new resident entry in the list.*
+
 <box type="warning" seamless>
 
 **Caution:**
@@ -172,6 +175,9 @@ Examples:
 * `-newtag` must not be followed by a value; e.g. `-newtag oops` is rejected.
 
 </box>
+
+![Add command invalid format](images/ug-add-error-format.png)
+*`add stray n/Alice r/#1-01` shows `Invalid command format!` feedback.*
 
 ---
 
@@ -196,6 +202,9 @@ Examples:
 * `add n/Sam Lee r/#08-110 t/study-group -newtag` creates and uses a new custom tag.
 * `edit 2 t/study-group` reuses an existing custom tag.
 * `edit 2 t/Study-Group -newtag` creates a different tag from `study-group` because tags are case-sensitive.
+
+![Tag usage in resident card](images/ug-tags-usage.png)
+*`add n/Sam Lee r/#08-110 t/study-group -newtag` demonstrates custom tag usage in the resident list.*
 
 ---
 
@@ -246,6 +255,9 @@ Input → Expected Output
 * `list -sort r/` → `Listed all residents sorted by room`
 * `list -sort n/` → `Listed all residents sorted by name`
 
+![List sorted by room](images/ug-list-sort-room.png)
+*`list -sort r/` shows the resident list sorted by room with the corresponding result message.*
+
 
 ### Editing a resident : `edit`
 
@@ -265,6 +277,12 @@ Examples:
 *  `edit 1 p/91234567 e/e1222222@u.nus.edu` Edits the phone number and email address of the 1st resident to be `91234567` and `e1222222@u.nus.edu` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd resident to be `Betsy Crower` and clears all existing tags.
 *  `edit 3 t/project-team -newtag` Replaces the 3rd resident's tags with `project-team` and creates that custom tag if needed.
+
+![Before edit command](images/ug-edit-success-before.png)
+*Before `edit 1 p/91234567 e/e1222222@u.nus.edu`: resident details prior to edit.*
+
+![After edit command](images/ug-edit-success-after.png)
+*After `edit 1 p/91234567 e/e1222222@u.nus.edu`: success message and updated resident details.*
 
 ### Commenting on a resident: `comment`
 
@@ -295,6 +313,12 @@ Examples:
   → Replaces existing comment  
 * `comment 3 c/`  
   → Deletes the existing comment  
+
+![Comment added](images/ug-comment-add.png)
+*`comment 1 c/Prefers WhatsApp messages before visits` adds a comment to the resident card.*
+
+![Comment removed](images/ug-comment-remove.png)
+*`comment 1 c/` removes the comment from the resident card.*
 
 <box type="warning" seamless>
 
@@ -346,6 +370,9 @@ Examples:
   → Shows residents with tags containing `allerg` (e.g., `allergies`)
 * `find alex #14-2 halal`  
   → Shows residents matching any of these keywords in name, room, or tags  
+
+![Find command filtered results](images/ug-find-results.png)
+*`find alex #14-2 study-group` shows filtered results that match any provided keyword.*
 
 <box type="warning" seamless>
 
@@ -403,6 +430,12 @@ Examples:
 * Trailing/leading/consecutive commas are invalid (e.g. `delete 1,`, `delete ,1`, `delete 1,,2`) → `Invalid command format!`
 
 </box>
+
+![Before multi-delete](images/ug-delete-multiple-success-before.png)
+*Before `delete 1,3`: resident list state prior to deletion.*
+
+![After multi-delete](images/ug-delete-multiple-success-after.png)
+*After `delete 1,3`: `Deleted Persons:` confirmation and updated resident list.*
 
 <box type="tip" seamless>
 
