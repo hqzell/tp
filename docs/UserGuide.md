@@ -225,6 +225,7 @@ Expected Output:
 * Supported sort prefixes:
   * `n/` (name)
   * `r/` (room)
+* Only one sort field is supported per command. Do not combine prefixes in a single sort (e.g., `list -sort n/ r/` is invalid).
 * If you omit `-sort`, residents are shown in the order stored in the app (typically the order they were added).
 
 </box>
@@ -234,6 +235,7 @@ Expected Output:
 **Caution:**
 * Invalid command format → `Invalid command format!`
 * Invalid sort prefix (e.g., `list -sort x/`) → `Invalid sort field! Supported field prefixes: n/, r/`
+* Multiple sort fields are not supported (e.g., `list -sort n/ r/`) → `Invalid command format!`
 
 </box>
 
