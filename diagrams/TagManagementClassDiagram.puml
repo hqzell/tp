@@ -1,0 +1,36 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package "Tag Management" as TagManagement <<Rectangle>> {
+Class ModelManager
+Class AddressBook
+Class Person
+Class CustomTagRegistry
+Class Tag
+Enum DefaultTagEnum
+}
+
+ModelManager --> "1" AddressBook : delegates tag checks\nand registration
+AddressBook *--> "1" CustomTagRegistry
+AddressBook --> "~* all" Person
+Person *--> "*" Tag
+CustomTagRegistry --> "*" Tag : tracks custom tags
+Tag ..> DefaultTagEnum : checks built-in tags
+
+note right of DefaultTagEnum
+Built-in tags:
+vegetarian
+vegan
+halal
+allergies
+end note
+
+note bottom of CustomTagRegistry
+Stores only custom tags.
+Built-in tags are treated as known
+without being registered here.
+end note
+@enduml
