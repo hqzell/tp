@@ -57,12 +57,16 @@ public class Room implements Comparable<Room> {
 
         Room otherRoom = (Room) other;
         assert otherRoom != null : "After instanceof check, otherRoom should not be null";
-        return value.equals(otherRoom.value);
+        return compareTo(otherRoom) == 0;
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        String[] parts = value.substring(1).split("-");
+        int floor = Integer.parseInt(parts[0]);
+        int unit = Integer.parseInt(parts[1]);
+        String letter = parts.length > 2 ? parts[2] : "";
+        return java.util.Objects.hash(floor, unit, letter);
     }
 
     @Override

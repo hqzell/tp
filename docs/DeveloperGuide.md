@@ -202,7 +202,8 @@ The following sequence diagram shows the main interactions for `list -sort n/`.
 
 **Aspect: How sorting interacts with filtering**
 
-*   **Choice (current):** Sort order is reset when a new filter is applied unless specified via `list -sort <prefix>/`.
+*   **Choice (current):** Sort order is reset by `find` and plain `list`, but
+    preserved by `add` after a prior `list -sort <prefix>/`.
     *   Pros: Predictable behavior; users always see the list state they explicitly requested.
     *   Cons: Users cannot "keep" a sort order while performing multiple different searches without re-specifying the sort field.
 
@@ -451,7 +452,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. System shows a list of residents matching the tag.
 3. User requests to view the full details of a specific resident.
 4. User requests to add a new specific dietary tag to that resident’s record.
-5. System preserves the history and adds the new tag.
+5. System updates the resident record with the new tag.
 
    Use case ends.
 

@@ -59,6 +59,9 @@ public class RoomTest {
 
         // different values -> returns false
         assertFalse(room.equals(new Room("#3-118-A")));
+
+        // equivalent unit formatting -> returns true
+        assertTrue(new Room("#12-02").equals(new Room("#12-2")));
     }
 
     @Test
@@ -66,6 +69,10 @@ public class RoomTest {
         Room room1 = new Room("#14-203-D");
         Room room2 = new Room("#14-203-D");
         assertTrue(room1.hashCode() == room2.hashCode());
+
+        Room equivalentRoom1 = new Room("#12-02");
+        Room equivalentRoom2 = new Room("#12-2");
+        assertTrue(equivalentRoom1.hashCode() == equivalentRoom2.hashCode());
     }
 
     @Test
@@ -87,6 +94,9 @@ public class RoomTest {
         assertTrue(roomLower.compareTo(roomHigherUnit) < 0);
         // lower unit -> returns positive
         assertTrue(roomHigherUnit.compareTo(roomLower) > 0);
+
+        // equivalent unit formatting -> returns 0
+        assertTrue(new Room("#12-02").compareTo(new Room("#12-2")) == 0);
 
         // higher letter -> returns negative
         assertTrue(roomLower.compareTo(roomHigherLetter) < 0);

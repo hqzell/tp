@@ -47,6 +47,13 @@ public class PersonTest {
         editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
+        // different unit formatting, but same numeric room -> conflict
+        Person personWithZeroPaddedRoom = new PersonBuilder(ALICE).withName("Zero Padded")
+                .withPhone("91111111").withEmail("zero@example.com").withRoom("#12-02").build();
+        Person personWithUnpaddedRoom = new PersonBuilder(ALICE).withName("Unpadded")
+                .withPhone("92222222").withEmail("unpadded@example.com").withRoom("#12-2").build();
+        assertTrue(personWithZeroPaddedRoom.isSamePerson(personWithUnpaddedRoom));
+
         // different name, phone, email, and room -> returns false
         editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB).withRoom(VALID_ROOM_BOB).build();

@@ -147,6 +147,24 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_duplicateRoomDifferentUnitFormatting_throwsCommandException() {
+        Person existingPerson = new PersonBuilder().withName("Eve Epsilon")
+                .withPhone("90000004")
+                .withEmail("eve.epsilon@example.com")
+                .withRoom("#12-02")
+                .build();
+        Person duplicateRoom = new PersonBuilder().withName("Fox Zeta")
+                .withPhone("90000005")
+                .withEmail("fox.zeta@example.com")
+                .withRoom("#12-2")
+                .build();
+        AddCommand addCommand = new AddCommand(duplicateRoom);
+
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_ROOM, () ->
+                addCommand.execute(new ModelStubWithPerson(existingPerson)));
+    }
+
+    @Test
     public void execute_unknownCustomTagWithoutNewTagFlag_throwsCommandException() {
         Person personWithCustomTag = new PersonBuilder().withTags("study-group").build();
         AddCommand addCommand = new AddCommand(personWithCustomTag);

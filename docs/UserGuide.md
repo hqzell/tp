@@ -144,6 +144,7 @@ Format: `add n/NAME [p/PHONE] [e/EMAIL] r/ROOM [t/TAG]…​ [-newtag]`
 * If you include `-newtag` for a tag that already exists, RACE will still accept the command. No duplicate tag is created.
 * Duplicate checks apply to `name`, `room`, `phone`, and `email`.
 * `phone` and `email` are optional, but if provided, they must still be unique among residents.
+* If you previously ran `list -sort ...`, adding a resident preserves that active sort order in the displayed list.
 
 </box>
 

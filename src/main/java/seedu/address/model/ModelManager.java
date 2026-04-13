@@ -114,7 +114,8 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        // Preserve any active sort comparator after adding a new person.
+        filteredPersons.setPredicate(PREDICATE_SHOW_ALL_PERSONS);
         assert addressBook.hasPerson(person) : "Person should exist after addPerson";
     }
 

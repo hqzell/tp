@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 import java.util.Objects;
@@ -66,7 +65,6 @@ public class CommentCommand extends Command {
                 personToEdit.getRoom(), comment, personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         logger.fine("EditComment completed for index: " + index.getZeroBased());
         return new CommandResult(generateSuccessMessage(personToEdit, editedPerson));

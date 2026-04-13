@@ -188,6 +188,22 @@ public class EditCommandTest {
     }
 
     @Test
+    public void execute_duplicateRoomDifferentUnitFormattingUnfilteredList_failure() {
+        Model customModel = new ModelManager(new AddressBook(), new UserPrefs());
+        Person firstPerson = new PersonBuilder().withName("Echo").withPhone("90000055")
+                .withEmail("echo@example.com").withRoom("#12-02").build();
+        Person secondPerson = new PersonBuilder().withName("Foxtrot").withPhone("90000066")
+                .withEmail("foxtrot@example.com").withRoom("#6-666-F").build();
+        customModel.addPerson(firstPerson);
+        customModel.addPerson(secondPerson);
+
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON,
+                new EditPersonDescriptorBuilder().withRoom("#12-2").build());
+
+        assertCommandFailure(editCommand, customModel, EditCommand.MESSAGE_DUPLICATE_ROOM);
+    }
+
+    @Test
     public void execute_unknownCustomTagWithoutNewTagFlag_failure() {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withTags(VALID_TAG_STUDY_GROUP).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
