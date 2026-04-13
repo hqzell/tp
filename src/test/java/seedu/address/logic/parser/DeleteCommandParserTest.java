@@ -40,5 +40,8 @@ public class DeleteCommandParserTest {
         assertParseFailure(parser, ",1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         assertParseFailure(parser, "1, ,2", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         assertParseFailure(parser, "1,,2", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, "1,1", DeleteCommand.MESSAGE_DUPLICATE_INDICES);
+        assertParseFailure(parser, "1,2,1", DeleteCommand.MESSAGE_DUPLICATE_INDICES);
     }
 }
