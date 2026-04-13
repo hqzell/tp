@@ -24,11 +24,12 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes one or more persons identified by index numbers used in the displayed person list.\n"
-            + "Parameters: INDEX[,INDEX]... (each index must be a positive integer)\n"
+            + "Parameters: INDEX[,INDEX]... (each index must be a positive integer; no duplicate indices)\n"
             + "Example: " + COMMAND_WORD + " 1,3,5";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
     public static final String MESSAGE_DELETE_PERSONS_SUCCESS = "Deleted Persons:\n%1$s";
+    public static final String MESSAGE_DUPLICATE_INDICES = "Duplicate indices are not allowed.";
 
     private final List<Index> targetIndices;
 
@@ -46,19 +47,18 @@ public class DeleteCommand extends Command {
         // Use the currently filtered list so the displayed indices map to the same persons.
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        // Track indices we've already processed so duplicate indices don't cause double-deletes.
         Set<Integer> seenZeroBasedIndices = new HashSet<>();
-        // Collect persons to delete first, so we can delete after validation/deduping.
+        for (Index targetIndex : targetIndices) {
+            if (!seenZeroBasedIndices.add(targetIndex.getZeroBased())) {
+                throw new CommandException(MESSAGE_DUPLICATE_INDICES);
+            }
+        }
+
         List<Person> personsToDelete = new ArrayList<>();
         for (Index targetIndex : targetIndices) {
             int zeroBasedIndex = targetIndex.getZeroBased();
             if (zeroBasedIndex >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-            }
-            // Happens when the user provides duplicate indices (e.g., `delete 1 1 2`).
-            // We skip already-processed indices to avoid deleting the same person twice.
-            if (!seenZeroBasedIndices.add(zeroBasedIndex)) {
-                continue;
             }
             personsToDelete.add(lastShownList.get(zeroBasedIndex));
         }

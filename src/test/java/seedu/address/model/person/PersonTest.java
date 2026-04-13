@@ -52,10 +52,14 @@ public class PersonTest {
                 .withEmail(VALID_EMAIL_BOB).withRoom(VALID_ROOM_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
-        // name differs in case; no shared name, room, phone, or email -> returns false
+        // same name differing only in case -> still treated as the same person
         Person editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).withPhone("99999999")
                 .withEmail("unique@example.com").withRoom("#12-120-F").build();
-        assertFalse(BOB.isSamePerson(editedBob));
+        assertTrue(BOB.isSamePerson(editedBob));
+
+        // same email differing only in case -> still treated as the same person
+        Person aliceDifferentEmailCase = new PersonBuilder(ALICE).withEmail("ALICE@EXAMPLE.COM").build();
+        assertTrue(ALICE.isSamePerson(aliceDifferentEmailCase));
 
         // different name (trailing space); no overlapping identity fields -> returns false
         String nameWithTrailingSpaces = VALID_NAME_BOB + " ";

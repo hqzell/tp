@@ -70,8 +70,9 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons cannot coexist in the address book because they share the same name,
-     * room number, or (when both are non-empty) the same phone number or email.
+     * Returns true if both persons cannot coexist in the address book because they share the same name
+     * (case-insensitive), room number, or (when both are non-empty) the same phone number or email
+     * (emails compared case-insensitively when both are non-empty).
      */
     public boolean isSamePerson(Person otherPerson) {
         if (otherPerson == this) {

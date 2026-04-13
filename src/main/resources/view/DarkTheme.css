@@ -129,20 +129,25 @@
     -fx-border-width: 1;
 }
 
-.list-cell .label {
+.cell_big_label, .cell_heading_label {
+    -fx-font-size: 16px;
+}
+
+.cell_heading_label {
+    -fx-font-weight: bold;
     -fx-text-fill: #0f172a;
 }
 
-.cell_big_label {
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 16px;
-    -fx-text-fill: #e2e8f0; /* #010504; */
+.cell_small_label, .field_header_label, .comment_label {
+    -fx-font-size: 13px;
 }
 
-.cell_small_label {
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 13px;
-    -fx-text-fill:#e2e8f0; /* #010504; */
+.field_header_label {
+    -fx-text-fill: #0f172a;
+}
+
+.comment_label {
+    -fx-text-fill: #333355;
 }
 
 .stack-pane {
@@ -310,9 +315,14 @@
     -fx-background-color: #3c5372;
 }
 
+.scroll-bar .track {
+    -fx-background-color: #334155;
+}
+
 .scroll-bar .thumb {
-    -fx-background-color: #3c5372;
     -fx-background-insets: 3;
+    -fx-background-color: #94a3b8;
+}
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
@@ -373,7 +383,7 @@
 
 #tags .label {
     -fx-text-fill: white;
-    -fx-background-color: #efb218;
+    -fx-background-color: #ff6a00;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;

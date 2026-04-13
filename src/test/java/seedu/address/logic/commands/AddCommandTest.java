@@ -57,6 +57,42 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_duplicateNameDifferingOnlyInCase_throwsCommandException() {
+        Person existingPerson = new PersonBuilder().withName("John Doe")
+                .withPhone("91111111")
+                .withEmail("john@example.com")
+                .withRoom("#1-101-A")
+                .build();
+        Person duplicateName = new PersonBuilder().withName("john doe")
+                .withPhone("92222222")
+                .withEmail("other@example.com")
+                .withRoom("#2-202-B")
+                .build();
+        AddCommand addCommand = new AddCommand(duplicateName);
+
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_NAME, () ->
+                addCommand.execute(new ModelStubWithPerson(existingPerson)));
+    }
+
+    @Test
+    public void execute_duplicateEmailDifferingOnlyInCase_throwsCommandException() {
+        Person existingPerson = new PersonBuilder().withName("Alpha")
+                .withPhone("93333333")
+                .withEmail("e13@gmail.com")
+                .withRoom("#3-303-C")
+                .build();
+        Person duplicateEmail = new PersonBuilder().withName("Beta")
+                .withPhone("94444444")
+                .withEmail("E13@GMAIL.COM")
+                .withRoom("#4-404-D")
+                .build();
+        AddCommand addCommand = new AddCommand(duplicateEmail);
+
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_EMAIL, () ->
+                addCommand.execute(new ModelStubWithPerson(existingPerson)));
+    }
+
+    @Test
     public void execute_duplicatePhone_throwsCommandException() {
         Person existingPerson = new PersonBuilder().withName("Alice Alpha")
                 .withPhone("90000001")

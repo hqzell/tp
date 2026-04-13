@@ -13,8 +13,9 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)} (same name, room, or
- * non-empty phone/email). Adding uses that check; {@link #setPerson(Person, Person)} skips the person being replaced
+ * A person is considered unique by comparing using {@code Person#isSamePerson(Person)} (same name ignoring case,
+ * room, or non-empty phone or case-insensitively equal email). Adding uses that check;
+ * {@link #setPerson(Person, Person)} skips the person being replaced
  * when checking conflicts. Removal uses {@code Person#equals(Object)} so the person with exactly the same fields is
  * removed.
  * <p>

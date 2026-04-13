@@ -18,19 +18,25 @@
                 <Insets top="5" right="5" bottom="5" left="15"/>
             </padding>
             <HBox spacing="0.5" alignment="CENTER_LEFT">
-                <Label fx:id="id" styleClass="cell_big_label">
+                <Label fx:id="id" styleClass="cell_heading_label">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
                         <Region fx:constant="USE_PREF_SIZE"/>
                     </minWidth>
                 </Label>
-                <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
+                <Label fx:id="name" text="\$first" styleClass="cell_heading_label"/>
             </HBox>
+            <Label fx:id="room" styleClass="cell_big_label"/>
             <FlowPane fx:id="tags"/>
-            <Label fx:id="phone" styleClass="cell_small_label" text="\$phone"/>
-            <Label fx:id="room" styleClass="cell_small_label" text="\$room"/>
-            <Label fx:id="email" styleClass="cell_small_label" text="\$email"/>
-            <Label fx:id="comment" styleClass="cell_small_label" text="\$comment"/>
+            <HBox spacing="4" alignment="CENTER_LEFT">
+                <Label styleClass="field_header_label" text="Tel:"/>
+                <Label fx:id="phone" styleClass="cell_small_label" text="\$phone"/>
+            </HBox>
+            <HBox spacing="4" alignment="CENTER_LEFT">
+                <Label styleClass="field_header_label" text="Email:"/>
+                <Label fx:id="email" styleClass="cell_small_label" text="\$email"/>
+            </HBox>
+            <Label fx:id="comment" styleClass="comment_label" text="\$comment"/>
         </VBox>
     </GridPane>
 </HBox>

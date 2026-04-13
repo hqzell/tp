@@ -83,6 +83,12 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void execute_duplicateIndices_throwsCommandException() {
+        DeleteCommand deleteCommand = new DeleteCommand(List.of(INDEX_FIRST_PERSON, INDEX_FIRST_PERSON));
+        assertCommandFailure(deleteCommand, model, DeleteCommand.MESSAGE_DUPLICATE_INDICES);
+    }
+
+    @Test
     public void execute_multipleValidIndicesUnfilteredList_success() {
         Person firstPersonToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person thirdPersonToDelete = model.getFilteredPersonList().get(INDEX_THIRD_PERSON.getZeroBased());

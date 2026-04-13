@@ -29,11 +29,13 @@ public class RoomTest {
         assertFalse(Room.isValidRoom(" ")); // spaces only
         assertFalse(Room.isValidRoom("#14-203-d")); // letter must be uppercase
         assertFalse(Room.isValidRoom("#123-203-D")); // floor must be 1-2 digits
+        assertFalse(Room.isValidRoom("#14-2034-D")); // unit must be 1-3 digits
         assertFalse(Room.isValidRoom("14-203-D")); // missing leading '#'
 
         // valid rooms
         assertTrue(Room.isValidRoom("#14-203-D"));
-        assertTrue(Room.isValidRoom("#14-20-D")); // unit can be 2 or 3 digits
+        assertTrue(Room.isValidRoom("#14-2-D")); // unit can be 1, 2, or 3 digits
+        assertTrue(Room.isValidRoom("#14-20-D"));
         assertTrue(Room.isValidRoom("#1-000-A"));
         assertTrue(Room.isValidRoom("#14-20")); // letter is optional
         assertTrue(Room.isValidRoom("#99-999-Z"));

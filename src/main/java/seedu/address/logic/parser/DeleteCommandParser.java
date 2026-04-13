@@ -3,7 +3,9 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
@@ -37,8 +39,17 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             if (indices.isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
             }
+            Set<Integer> seenZeroBased = new HashSet<>();
+            for (Index index : indices) {
+                if (!seenZeroBased.add(index.getZeroBased())) {
+                    throw new ParseException(DeleteCommand.MESSAGE_DUPLICATE_INDICES);
+                }
+            }
             return new DeleteCommand(indices);
         } catch (ParseException pe) {
+            if (DeleteCommand.MESSAGE_DUPLICATE_INDICES.equals(pe.getMessage())) {
+                throw pe;
+            }
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
         } catch (IllegalArgumentException iae) {
