@@ -45,7 +45,7 @@ public class EmailTest {
         assertFalse(Email.isValidEmail("peter@jack@example.com")); // '@' symbol in local part
         assertFalse(Email.isValidEmail("-peterjack@example.com")); // local part starts with a hyphen
         assertFalse(Email.isValidEmail("peterjack-@example.com")); // local part ends with a hyphen
-        assertFalse(Email.isValidEmail("peter..jack@example.com")); // local part has two consecutive periods
+        assertTrue(Email.isValidEmail("peter..jack@example.com")); // consecutive special chars are allowed
         assertFalse(Email.isValidEmail("peterjack@example@com")); // '@' symbol in domain name
         assertFalse(Email.isValidEmail("peterjack@.example.com")); // domain name starts with a period
         assertFalse(Email.isValidEmail("peterjack@example.com.")); // domain name ends with a period
@@ -62,6 +62,8 @@ public class EmailTest {
         assertTrue(Email.isValidEmail("test@localhost")); // alphabets only
         assertTrue(Email.isValidEmail("123@145")); // numeric local part and domain name
         assertTrue(Email.isValidEmail("a1+be.d@example1.com")); // mixture of alphanumeric and special characters
+        assertTrue(Email.isValidEmail("a+-a@example.com")); // consecutive mixed special characters in local part
+        assertTrue(Email.isValidEmail("a++a@example.com")); // consecutive identical special characters in local part
         assertTrue(Email.isValidEmail("peter_jack@very-very-very-long-example.com")); // long domain name
         assertTrue(Email.isValidEmail("if.you.dream.it_you.can.do.it@example.com")); // long local part
         assertTrue(Email.isValidEmail("e1234567@u.nus.edu")); // more than one period in domain
