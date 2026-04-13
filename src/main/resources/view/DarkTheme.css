@@ -315,9 +315,14 @@
     -fx-background-color: #3c5372;
 }
 
+.scroll-bar .track {
+    -fx-background-color: #334155;
+}
+
 .scroll-bar .thumb {
-    -fx-background-color: #3c5372;
     -fx-background-insets: 3;
+    -fx-background-color: #94a3b8;
+}
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
