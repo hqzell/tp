@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -87,5 +88,10 @@ public class EmailTest {
 
         // same address, different case -> returns true
         assertTrue(email.equals(new Email("VALID@EMAIL")));
+    }
+
+    @Test
+    public void hashCode_sameAddressDifferentCase_sameHashCode() {
+        assertEquals(new Email("valid@email").hashCode(), new Email("VALID@EMAIL").hashCode());
     }
 }
