@@ -394,6 +394,7 @@ Examples:
 **Caution:**
 * Invalid index → `The person index provided is invalid`
 * Missing index → `Invalid command format!`
+* Trailing/leading/consecutive commas are invalid (e.g. `delete 1,`, `delete ,1`, `delete 1,,2`) → `Invalid command format!`
 
 </box>
 
